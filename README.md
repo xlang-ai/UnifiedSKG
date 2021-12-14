@@ -6,7 +6,7 @@
 
 HERE IS OUR ABSTRACT.
 
-To this end, we unified and benchmarked datasets, models, metrics (which were distributed in different platform like tensorflow, fairseq and different usage like shell script or functions) into a single framework for researchers to study **S**tructured **K**nowledge **G**rounding tasks together, including pretrain, multi-task, few/zero-shot learning, meta-learning, etc. 
+To this end, we unified and benchmarked datasets, models, metrics (which were distributed in different platform like tensorflow, fairseq and different usage like shell script or functions) into a single framework for researchers to study **S**tructured **K**nowledge **G**rounding tasks together, including pretrain, prompt learning, multi-task learning, few/zero-shot learning, meta-learning, etc. 
 
 We encourage the researchers that want to promote their fantastic work to the community to make **pull request** to update their datasets, metrics, models! 
 
