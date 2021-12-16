@@ -1,4 +1,4 @@
-# UnifiedSKG: A Unified Framework and Analysis for **S**tructured **K**nowledge Grounding
+# UnifiedSKG: Unifying Structured Knowledge Grounding with Text-to-Text Language Models
 
 ![](https://img.shields.io/github/last-commit/HKUNLP/UnifiedSKG?color=green) ![](https://img.shields.io/badge/PRs-Welcome-red) 
 
