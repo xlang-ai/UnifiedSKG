@@ -35,7 +35,7 @@ We encourage the researchers that want to promote their fantastic work to the co
     + [train.py](#trainpy)
     + [Procedure](#procedure)
   * [The overview file structure of this Unified Framework](#the-overview-file-structure-of-this-unified-framework)
-  * [* How to unify a new task into the framework](#--how-to-unify-a-new-task-into-the-framework)
+  * [How to unify a new task into the framework](#how-to-unify-a-new-task-into-the-framework)
   * [Ackonwledgement](#ackonwledgement)
 
 
@@ -248,20 +248,19 @@ raw data(s) -> + seq2seq data(s) ("seq_in" and "seq_out") -> tokenized -> seq2se
 
 
 
-## * How to unify a new task into the framework
+## How to unify a new task into the framework
 
 (README in ./tasks, ./seq2seq_construction, ./metrics, ./configure can also be useful)
 
-**step 1, add the loader of raw data in ./tasks,(you can search in huggingface dataset website firstly to find whether
-there is already a usable script, if not, that's great because you can be the contributor of both this project and huggingface community.**
+- **step 1**, Add the "Loader" of raw data in ./tasks, (you can search in [huggingface dataset website](https://github.com/huggingface/datasets) firstly to find whether there is already a usable script, if not, that's great because you can be the contributor of both this project and huggingface community.
 
-**step 2, add the wrapper which construct "seq_in" and "seq_out" from and add to the raw_data for seq2seq unification.**
+- **step 2**, Add the "Wrapper" which construct "seq_in"("user request input" & "structured knowledge input") and "seq_out" from and add to the raw_data for seq2seq unification.
 
-**step 3, add the evaluator(evaluate a task) in ./metrics. if use third_party repo, please add them into the ./third_party. dir**
+- **step 3**, Add the evaluator(evaluate a task) in ./metrics. if use third_party repo, please add them into the ./third_party. dir
 
-***step 3.5(optional), you can always add new models into the ./models/unified id you like.**
+- ***step 3.5(optional)**, You can always add new models into the ./models/unified id you like.
 
-**step 4, add the config file to drive your task or all the tasks we have by meta-tuning or other ways. And it is finished!**
+- **step 4**, Add the config file to drive your task or all the tasks we have by finetune/prefix-tuning/multi-task-finetune/pretrain... or other ways. 
 
 **And this is all for it ! =)**
 
@@ -269,7 +268,8 @@ there is already a usable script, if not, that's great because you can be the co
 
 ## Ackonwledgement
 
-TO BE ADDED
+Tao designed and led this project.
+MORE TO BE ADDED
 
 
 
