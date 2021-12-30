@@ -7,7 +7,7 @@ from datasets import DatasetDict
 from torch.utils.data import Dataset
 from torch.utils.data.dataset import T_co
 from transformers import AutoTokenizer
-
+from tqdm import tqdm
 from utils.processor import get_default_processor
 
 
@@ -43,18 +43,19 @@ class TrainDataset(Dataset):
     def __init__(self, args, raw_datasets, cache_root):
         # This tab processor is for table truncation and linearize.
         self.raw_datasets = raw_datasets
-        self.tab_processor = get_default_processor(max_cell_length=15,
-                                                   tokenizer=AutoTokenizer.from_pretrained(args.bert.location, use_fast=False),
-                                                   max_input_length=args.seq2seq.table_truncation_max_length)
 
         cache_path = os.path.join(cache_root, 'wikitq_train.cache')
         if os.path.exists(cache_path) and args.dataset.use_cache:
             self.extended_data = torch.load(cache_path)
         else:
+            self.tab_processor = get_default_processor(max_cell_length=15,
+                                                       tokenizer=AutoTokenizer.from_pretrained(args.bert.location, use_fast=False),
+                                                       max_input_length=args.seq2seq.table_truncation_max_length)
+
             self.extended_data = []
             expansion = args.seq2seq.expansion if args.seq2seq.expansion else 1
             for expand_id in range(expansion):
-                for raw_data in self.raw_datasets:
+                for raw_data in tqdm(self.raw_datasets):
                     extend_data = deepcopy(raw_data)
                     question = extend_data["question"]
                     table = extend_data['table']
@@ -87,16 +88,17 @@ class DevDataset(Dataset):
     def __init__(self, args, raw_datasets, cache_root):
         # This tab processor is for table truncation and linearize.
         self.raw_datasets = raw_datasets
-        self.tab_processor = get_default_processor(max_cell_length=15,
-                                                   tokenizer=AutoTokenizer.from_pretrained(args.bert.location, use_fast=False),
-                                                   max_input_length=args.seq2seq.table_truncation_max_length)
 
         cache_path = os.path.join(cache_root, 'wikitq_dev.cache')
         if os.path.exists(cache_path) and args.dataset.use_cache:
             self.extended_data = torch.load(cache_path)
         else:
+            self.tab_processor = get_default_processor(max_cell_length=15,
+                                                       tokenizer=AutoTokenizer.from_pretrained(args.bert.location, use_fast=False),
+                                                       max_input_length=args.seq2seq.table_truncation_max_length)
+
             self.extended_data = []
-            for raw_data in self.raw_datasets:
+            for raw_data in tqdm(self.raw_datasets):
                 extend_data = deepcopy(raw_data)
                 question = extend_data["question"]
                 table = extend_data['table']
@@ -129,16 +131,17 @@ class TestDataset(Dataset):
     def __init__(self, args, raw_datasets, cache_root):
         # This tab processor is for table truncation and linearize.
         self.raw_datasets = raw_datasets
-        self.tab_processor = get_default_processor(max_cell_length=15,
-                                                   tokenizer=AutoTokenizer.from_pretrained(args.bert.location, use_fast=False),
-                                                   max_input_length=args.seq2seq.table_truncation_max_length)
 
         cache_path = os.path.join(cache_root, 'wikitq_test.cache')
         if os.path.exists(cache_path) and args.dataset.use_cache:
             self.extended_data = torch.load(cache_path)
         else:
+            self.tab_processor = get_default_processor(max_cell_length=15,
+                                                       tokenizer=AutoTokenizer.from_pretrained(args.bert.location, use_fast=False),
+                                                       max_input_length=args.seq2seq.table_truncation_max_length)
+            
             self.extended_data = []
-            for raw_data in self.raw_datasets:
+            for raw_data in tqdm(self.raw_datasets):
                 extend_data = deepcopy(raw_data)
                 question = extend_data["question"]
                 table = extend_data['table']

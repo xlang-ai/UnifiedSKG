@@ -5,7 +5,7 @@ from copy import deepcopy
 from datasets import DatasetDict
 from torch.utils.data import Dataset
 from torch.utils.data.dataset import T_co
-
+from tqdm import tqdm
 
 def _add_adjusted_col_offsets(table):
     """Add adjusted column offsets to take into account multi-column cells."""
@@ -134,7 +134,7 @@ class TrainDataset(Dataset):
             self.data = torch.load(cache_path)
         else:
             self.data = []
-            for raw_data in self.raw_datasets:
+            for raw_data in tqdm(self.raw_datasets):
                 extend_data = deepcopy(raw_data)
                 table_page_title = extend_data["table_page_title"]
                 table_section_title = extend_data["table_section_title"]
@@ -177,7 +177,7 @@ class DevDataset(Dataset):
             self.data = torch.load(cache_path)
         else:
             self.data = []
-            for raw_data in self.raw_datasets:
+            for raw_data in tqdm(self.raw_datasets):
                 extend_data = deepcopy(raw_data)
                 table_page_title = extend_data["table_page_title"]
                 table_section_title = extend_data["table_section_title"]

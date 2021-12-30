@@ -7,7 +7,7 @@ from typing import List, Dict
 from datasets.dataset_dict import DatasetDict
 from torch.utils.data import Dataset
 from torch.utils.data.dataset import T_co
-
+from tqdm import tqdm
 from third_party.miscs.bridge_content_encoder import get_database_matches
 from copy import deepcopy
 """
@@ -284,7 +284,7 @@ class TrainDataset(Dataset):
             self.extended_data = torch.load(cache_path)
         else:
             self.extended_data = []
-            for raw_data in self.raw_datasets:
+            for raw_data in tqdm(self.raw_datasets):
                 extend_data = deepcopy(raw_data)
                 extend_data.update(cosql_add_serialized_schema(extend_data, args))
 
@@ -313,7 +313,7 @@ class DevDataset(Dataset):
             self.extended_data = torch.load(cache_path)
         else:
             self.extended_data = []
-            for raw_data in self.raw_datasets:
+            for raw_data in tqdm(self.raw_datasets):
                 extend_data = deepcopy(raw_data)
                 extend_data.update(cosql_add_serialized_schema(extend_data, args))
 

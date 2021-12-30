@@ -4,7 +4,7 @@ from copy import deepcopy
 from torch.utils.data import Dataset
 from torch.utils.data.dataset import T_co
 from datasets.dataset_dict import DatasetDict
-
+from tqdm import tqdm
 
 class Constructor(object):
     def __init__(self, args):
@@ -30,7 +30,7 @@ class TrainDataset(Dataset):
             self.data = torch.load(cache_path)
         else:
             self.data = []
-            for raw_data in self.raw_datasets:
+            for raw_data in tqdm(self.raw_datasets):
                 extend_data = deepcopy(raw_data)
 
                 extend_data.update({"struct_in": "",
@@ -57,7 +57,7 @@ class DevDataset(Dataset):
             self.data = torch.load(cache_path)
         else:
             self.data = []
-            for raw_data in self.raw_datasets:
+            for raw_data in tqdm(self.raw_datasets):
                 extend_data = deepcopy(raw_data)
 
                 extend_data.update({"struct_in": "",
@@ -84,7 +84,7 @@ class TestDataset(Dataset):
             self.data = torch.load(cache_path)
         else:
             self.data = []
-            for raw_data in self.raw_datasets:
+            for raw_data in tqdm(self.raw_datasets):
                 extend_data = deepcopy(raw_data)
 
                 extend_data.update({"struct_in": "",

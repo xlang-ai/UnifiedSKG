@@ -5,6 +5,7 @@ from torch.utils.data import Dataset
 from torch.utils.data.dataset import T_co
 import numpy as np
 import copy
+from tqdm import tqdm
 
 
 class Constructor(object):
@@ -113,7 +114,7 @@ class TrainDataset(Dataset):
             self.extended_data = torch.load(cache_path)
         else:
             self.extended_data = []
-            for raw_data in self.raw_datasets:
+            for raw_data in tqdm(self.raw_datasets):
                 extend_data = copy.deepcopy(raw_data)
                 question = raw_data["question"]
                 entity = grailqa_get_entity(raw_data)
@@ -143,7 +144,7 @@ class DevDataset(Dataset):
             self.extended_data = torch.load(cache_path)
         else:
             self.extended_data = []
-            for raw_data in self.raw_datasets:
+            for raw_data in tqdm(self.raw_datasets):
                 extend_data = copy.deepcopy(raw_data)
                 question = raw_data["question"]
                 entity = grailqa_get_entity(raw_data)
@@ -173,7 +174,7 @@ class TestDataset(Dataset):
             self.extended_data = torch.load(cache_path)
         else:
             self.extended_data = []
-            for raw_data in self.raw_datasets:
+            for raw_data in tqdm(self.raw_datasets):
                 extend_data = copy.deepcopy(raw_data)
                 question = raw_data["question"]
                 entity = grailqa_get_entity(raw_data)

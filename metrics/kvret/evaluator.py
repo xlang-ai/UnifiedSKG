@@ -1,9 +1,9 @@
 # encoding=utf8
 from collections import OrderedDict
-
+import json
 import nltk
 from datasets import load_metric
-import json
+
 
 def load_entities(kvret_entity_file_path):
     """
@@ -21,9 +21,27 @@ def load_entities(kvret_entity_file_path):
                         str(entity_item['address']).replace(" ", "_"))
                     under_scored_entity_dict[str(entity_item['poi'])] = (str(entity_item['poi']).replace(" ", "_"))
                     under_scored_entity_dict[str(entity_item['type'])] = (str(entity_item['type']).replace(" ", "_"))
+            elif sub_class_name == "distance":
+                for entity_item in sub_class_entity_list:
+                    under_scored_entity_dict[str(entity_item) + " miles"] = str(entity_item) + " miles"
+            elif sub_class_name == "temperature":
+                for entity_item in sub_class_entity_list:
+                    under_scored_entity_dict[str(entity_item) + "f"] = str(entity_item) + "f"
             else:
                 for entity_item in sub_class_entity_list:
                     under_scored_entity_dict[str(entity_item)] = (str(entity_item).replace(" ", "_"))
+        # add missing entities,
+        missed_entities = ["yoga", "tennis", "swimming", "football", " lab ", "doctor", "optometrist", "dentist", "1st",
+                           "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th",
+                           "11th", "12th", "13th", "14th", "15th", "16th", "17th", "18th", "19th", "20th", "Jill",
+                           "Jack"]
+        for missed_entity in missed_entities:
+            under_scored_entity_dict[str(missed_entity)] = (missed_entity)
+
+        # special handle of "HR"
+        del under_scored_entity_dict['HR']
+        under_scored_entity_dict[' HR '] = ' HR '
+
     return under_scored_entity_dict
 
 
@@ -93,14 +111,3 @@ class EvaluateTool(object):
                 summary[metric_name] = res[metric_name]
 
         return summary
-
-
-if __name__ == '__main__':
-    import json
-
-    with open("prediction.json") as f:
-        test_data = json.load(f)
-    preds = [item['prediction'] for item in test_data]
-    evaluator = EvaluateTool(args=None)
-    score = evaluator.evaluate(preds, test_data, section="test")
-    print(score)

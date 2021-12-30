@@ -3,7 +3,7 @@ import torch
 from datasets import DatasetDict
 from torch.utils.data import Dataset
 from torch.utils.data.dataset import T_co
-
+from tqdm import tqdm
 
 class Constructor(object):
     def __init__(self, args):
@@ -54,7 +54,7 @@ class TrainDataset(Dataset):
             self.full_rela_lst = []
             self.full_src_lst = []
             self.full_tgt_lst = []
-            for example in self.raw_datasets:
+            for example in tqdm(self.raw_datasets):
                 rela_lst = []
                 temp_triples = ''
                 for i, tripleset in enumerate(example['tripleset']):
@@ -100,7 +100,7 @@ class DevDataset(Dataset):
             self.full_tgt_lst = []
             self.full_ref_lst = []
 
-            for example in self.raw_datasets:
+            for example in tqdm(self.raw_datasets):
                 rela_lst = []
                 temp_triples = ''
                 for i, tripleset in enumerate(example['tripleset']):
@@ -145,7 +145,7 @@ class TestDataset(Dataset):
             self.full_tgt_lst = []
             self.full_ref_lst = []
 
-            for example in self.raw_datasets:
+            for example in tqdm(self.raw_datasets):
                 rela_lst = []
                 temp_triples = ''
                 for i, tripleset in enumerate(example['tripleset']):

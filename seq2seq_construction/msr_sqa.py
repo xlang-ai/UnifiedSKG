@@ -8,7 +8,7 @@ from torch.utils.data.dataset import T_co
 from transformers import AutoTokenizer
 
 from utils.processor import get_default_processor
-
+from tqdm import tqdm
 
 class Constructor(object):
     def __init__(self, args):
@@ -55,16 +55,17 @@ class TrainDataset(Dataset):
     def __init__(self, args, raw_datasets, cache_root):
         # This tab processor is for table truncation and linearize.
         self.raw_datasets = raw_datasets
-        self.tab_processor = get_default_processor(max_cell_length=15,
-                                                   tokenizer=AutoTokenizer.from_pretrained(args.bert.location, use_fast=False),
-                                                   max_input_length=args.seq2seq.table_truncation_max_length)
 
         cache_path = os.path.join(cache_root, 'sqa_train.cache')
         if os.path.exists(cache_path) and args.dataset.use_cache:
             self.extended_data = torch.load(cache_path)
         else:
+            self.tab_processor = get_default_processor(max_cell_length=15,
+                                                       tokenizer=AutoTokenizer.from_pretrained(args.bert.location, use_fast=False),
+                                                       max_input_length=args.seq2seq.table_truncation_max_length)
+
             self.extended_data = []
-            for i, raw_data in enumerate(self.raw_datasets):
+            for i, raw_data in tqdm(enumerate(self.raw_datasets)):
                 extended_data = copy.deepcopy(raw_data)
                 question_and_history_str, question_in_this_turn = sqa_get_constructed_history_and_golden_response(
                     extended_data['question_and_history'])
@@ -101,16 +102,17 @@ class DevDataset(Dataset):
     def __init__(self, args, raw_datasets, cache_root):
         # This tab processor is for table truncation and linearize.
         self.raw_datasets = raw_datasets
-        self.tab_processor = get_default_processor(max_cell_length=15,
-                                                   tokenizer=AutoTokenizer.from_pretrained(args.bert.location, use_fast=False),
-                                                   max_input_length=args.seq2seq.table_truncation_max_length)
 
         cache_path = os.path.join(cache_root, 'sqa_dev.cache')
         if os.path.exists(cache_path) and args.dataset.use_cache:
             self.extended_data = torch.load(cache_path)
         else:
+            self.tab_processor = get_default_processor(max_cell_length=15,
+                                                       tokenizer=AutoTokenizer.from_pretrained(args.bert.location, use_fast=False),
+                                                       max_input_length=args.seq2seq.table_truncation_max_length)
+
             self.extended_data = []
-            for i, raw_data in enumerate(self.raw_datasets):
+            for i, raw_data in tqdm(enumerate(self.raw_datasets)):
                 extended_data = copy.deepcopy(raw_data)
                 question_and_history_str, question_in_this_turn = sqa_get_constructed_history_and_golden_response(
                     extended_data['question_and_history'])
@@ -147,16 +149,17 @@ class TestDataset(Dataset):
     def __init__(self, args, raw_datasets, cache_root):
         # This tab processor is for table truncation and linearize.
         self.raw_datasets = raw_datasets
-        self.tab_processor = get_default_processor(max_cell_length=15,
-                                                   tokenizer=AutoTokenizer.from_pretrained(args.bert.location, use_fast=False),
-                                                   max_input_length=args.seq2seq.table_truncation_max_length)
 
         cache_path = os.path.join(cache_root, 'sqa_test.cache')
         if os.path.exists(cache_path) and args.dataset.use_cache:
             self.extended_data = torch.load(cache_path)
         else:
+            self.tab_processor = get_default_processor(max_cell_length=15,
+                                                       tokenizer=AutoTokenizer.from_pretrained(args.bert.location, use_fast=False),
+                                                       max_input_length=args.seq2seq.table_truncation_max_length)
+
             self.extended_data = []
-            for i, raw_data in enumerate(self.raw_datasets):
+            for i, raw_data in tqdm(enumerate(self.raw_datasets)):
                 extended_data = copy.deepcopy(raw_data)
                 question_and_history_str, question_in_this_turn = sqa_get_constructed_history_and_golden_response(
                     extended_data['question_and_history'])

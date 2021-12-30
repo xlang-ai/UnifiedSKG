@@ -5,7 +5,7 @@ import torch
 from datasets import DatasetDict
 from torch.utils.data import Dataset
 from torch.utils.data.dataset import T_co
-
+from tqdm import tqdm
 
 class Constructor(object):
     def __init__(self, args):
@@ -52,7 +52,7 @@ class TrainDataset(Dataset):
         else:
             self.full_src_lst = []
             self.full_tgt_lst = []
-            for example in self.raw_datasets:
+            for example in tqdm(self.raw_datasets):
                 mr_attr_value_pairs = parse_meaning_representation(example['meaning_representation'])
                 human_reference = example['human_reference']
                 mr_str = ''
@@ -87,7 +87,7 @@ class DevDataset(Dataset):
         else:
             self.full_src_tgt_dic = {}
 
-            for example in self.raw_datasets:
+            for example in tqdm(self.raw_datasets):
                 mr_attr_value_pairs = parse_meaning_representation(example['meaning_representation'])
                 human_reference = example['human_reference']
                 mr_str = ''
@@ -131,7 +131,7 @@ class TestDataset(Dataset):
         else:
             self.full_src_tgt_dic = {}
 
-            for example in self.raw_datasets:
+            for example in tqdm(self.raw_datasets):
                 mr_attr_value_pairs = parse_meaning_representation(example['meaning_representation'])
                 human_reference = example['human_reference']
                 mr_str = ''

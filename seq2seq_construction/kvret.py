@@ -6,7 +6,7 @@ from datasets import DatasetDict
 from torch.utils.data import Dataset
 from torch.utils.data.dataset import T_co
 from transformers import AutoTokenizer
-
+from tqdm import tqdm
 from utils.processor import get_default_processor
 
 
@@ -81,11 +81,11 @@ class TrainDataset(Dataset):
             self.extended_data = []
             expansion = args.seq2seq.expansion if args.seq2seq.expansion else 1
             for expand_id in range(expansion):
-                for raw_data in self.raw_datasets:
+                for raw_data in tqdm(self.raw_datasets):
                     # Expand the dialogue data
-                    for i in range(1, len(raw_data['dialogue']['driver'])):
-                        if i == len(raw_data['dialogue']['driver']) - 1 and not len(raw_data['dialogue']['driver']) == len(
-                                raw_data['dialogue']['assistant']):
+                    for i in range(1, len(raw_data['dialogue']['driver']) + 1):
+                        if i > min(len(raw_data['dialogue']['driver']), len(raw_data['dialogue']['assistant'])) \
+                                and not len(raw_data['dialogue']['driver']) == len(raw_data['dialogue']['assistant']):
                             continue
                         # this is because some dialogue items of kvret dataset miss the response in the last turn
                         extend_data = copy.deepcopy(raw_data)
@@ -131,11 +131,11 @@ class DevDataset(Dataset):
             self.extended_data = []
             expansion = args.seq2seq.expansion if args.seq2seq.expansion else 1
             for expand_id in range(expansion):
-                for raw_data in self.raw_datasets:
+                for raw_data in tqdm(self.raw_datasets):
                     # Expand the dialogue data
-                    for i in range(1, len(raw_data['dialogue']['driver'])):
-                        if i == len(raw_data['dialogue']['driver']) - 1 and not len(raw_data['dialogue']['driver']) == len(
-                                raw_data['dialogue']['assistant']):
+                    for i in range(1, len(raw_data['dialogue']['driver']) + 1):
+                        if i > min(len(raw_data['dialogue']['driver']), len(raw_data['dialogue']['assistant'])) \
+                                and not len(raw_data['dialogue']['driver']) == len(raw_data['dialogue']['assistant']):
                             continue
                             # this is because some dialogue items of kvret dataset miss the response in the last turn
                         extend_data = copy.deepcopy(raw_data)
@@ -181,11 +181,11 @@ class TestDataset(Dataset):
             self.extended_data = []
             expansion = args.seq2seq.expansion if args.seq2seq.expansion else 1
             for expand_id in range(expansion):
-                for raw_data in self.raw_datasets:
+                for raw_data in tqdm(self.raw_datasets):
                     # Expand the dialogue data
-                    for i in range(1, len(raw_data['dialogue']['driver'])):
-                        if i == len(raw_data['dialogue']['driver']) - 1 and not len(raw_data['dialogue']['driver']) == len(
-                                raw_data['dialogue']['assistant']):
+                    for i in range(1, len(raw_data['dialogue']['driver']) + 1):
+                        if i > min(len(raw_data['dialogue']['driver']), len(raw_data['dialogue']['assistant'])) \
+                                and not len(raw_data['dialogue']['driver']) == len(raw_data['dialogue']['assistant']):
                             continue
                             # this is because some dialogue items of kvret dataset miss the response in the last turn
                         extend_data = copy.deepcopy(raw_data)
