@@ -2,13 +2,9 @@
 
 ![](https://img.shields.io/github/last-commit/HKUNLP/UnifiedSKG?color=green) ![](https://img.shields.io/badge/PRs-Welcome-red) 
 
+**S**tructured **k**nowledge **g**rounding (**SKG**) leverages structured knowledge to complete user requests, such as semantic parsing over databases and question answering over knowledge bases. Since the inputs and outputs of SKG tasks are heterogeneous, they were historically studied in separate by different communities,  which limits systematic and compatible research on SKG. In this paper, we overcome this limitation by proposing the **UNIFIEDSKG framework**, which unifies **21 SKG tasks** into the text-to-text format, aiming to promote systematic SKG research, instead of being exclusive to a single task, domain, or dataset. We show that large language models like T5, with simple modification when necessary, achieve **state-of-the-art performance on all 21 tasks**. **UNIFIEDSKG** facilitates the investigation of **multi-task, zero-shot, and few-shot learning**. We demonstrate that multi-task prefix-tuning with UNIFIEDSKG improves the performance on most tasks and show that T0, GPT-3, and Codex struggle in zero-shot and few-shot learning for **SKG**. **UNIFIEDSKG** also enables a series of controlled experiments on structured knowledge encoding variants across SKG tasks. We find that T5’s sensitivity to structured knowledge encoding variations varies across tasks. 
 
-
-HERE IS OUR ABSTRACT.
-
-To this end, we unified and benchmarked datasets, models, metrics (which were distributed in different platform like tensorflow, fairseq and different usage like shell script or functions) into a single framework for researchers to study **S**tructured **K**nowledge **G**rounding tasks together, including pretrain, prompt learning, multi-task learning, few/zero-shot learning, meta-learning, etc. 
-
-We encourage the researchers that want to promote their fantastic work to the community to make **pull request** to update their datasets, metrics, models! 
+**UNIFIEDSKG** is easily extensible to more tasks. We encourage the researchers that want to promote their fantastic work to the community to make **pull request** to update their datasets, metrics, models! 
 
 
 
