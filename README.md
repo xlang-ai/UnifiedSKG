@@ -267,9 +267,7 @@ raw data(s) -> + seq2seq data(s) ("seq_in" and "seq_out") -> tokenized -> seq2se
 
 
 ## Ackonwledgement
-
-Tao designed and led this project.
-MORE TO BE ADDED
+Besides all authors in this project, we need to give thank to these people for their warming and kindly help for this project. We thank [Yifei Min](https://statistics.yale.edu/people/yifei-min) and [Libo Qin](http://ir.hit.edu.cn/~lbqin/) for early stage discussion. We thank [Qian Liu](https://siviltaram.github.io/) for [TAPEX code](https://github.com/microsoft/Table-Pretraining) and advice on Question Answering tasks. We thank [Ice Pasupat](https://ppasupat.github.io/) for reviewing this paper. We thank [wandb](https://wandb.ai/) for free logging and [OpenAI](https://openai.com/) for free Codex usage.
 
 
 
