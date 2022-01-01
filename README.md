@@ -20,7 +20,7 @@
     + [Sub-Modules](#sub-modules)
       - [~~TaPEx~~（we adopted its table processor into our code to do some changes）](#--tapex---we-adopted-its-table-processor-into-our-code-to-do-some-changes-)
       - [TaBERT](#tabert)
-  * [To run](#to-run)
+  * [Usage](#usage)
     + [Environment setup](#environment-setup)
     + [Training](#training)
     + [Deepspeed](#deepspeed)
@@ -49,9 +49,7 @@ In order to include third-party dependencies in this repository, make sure to cl
 git clone --recurse-submodules git@github.com:HKUNLP/UnifiedSKG.git
 ```
 
-
-
-## Dependency
+## Dependencies
 
 To establish the environment run this code in the shell (the third line is for CUDA11.1):
 
@@ -65,8 +63,7 @@ pip install torch==1.8.0+cu111 torchvision==0.9.0+cu111 torchaudio==0.8.0 -f htt
 
 That will create the environment `py3.7pytorch1.8` we used. 
 
-
-
+<!--
 ### Sub-Modules
 
 Some third party libraries stored in sub-modules need installation
@@ -105,72 +102,44 @@ please note in the block below of this README:
 ``````
 we will compress them to create a docker environment in the end. 
 
+-->
 
-
-## To run
+## Usage
 
 ### Environment setup
 
-Configure [W & B](https://wandb.ai/) progress reporting support:
-
+Setup [W & B](https://wandb.ai/) for logging (registration needed):
 ``````shell
 export WANDB_ENTITY=YOUR_WANDB_USERNAME
 export WANDB_API_KEY=YOUR_WANDB_API_KEY
 export WANDB_PROJECT=YOUR_PROJECT_NAME
 ``````
 
-Environment setup
-
+Activate the environment
 ``````shell
 conda activate py3.7pytorch1.8
-export CUDA_LAUNCH_BLOCKING=1
 ``````
 
 ### Training
 
-Resume training
-
+T5-base finetuning on WikiTQ (4 GPUs, 128 effective batch size)
 ``````shell
-export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-export RUN_NAME=finetune_9tasks_01eval_bsz32_dist
-nohup python -m torch.distributed.launch --nproc_per_node 8 --master_port 1234 train.py --cfg META_TUNING/T5_finetune.cfg --report_to wandb --run_name $RUN_NAME --logging_strategy steps --logging_first_step true --logging_steps 4 --evaluation_strategy steps --eval_steps 500 --metric_for_best_model avr --greater_is_better true --save_strategy steps --save_steps 500 --save_total_limit 15 --load_best_model_at_end --gradient_accumulation_steps 4 --num_train_epochs 20 --adafactor true --learning_rate 5e-5 --do_train --do_eval --do_predict --predict_with_generate --output_dir output/$RUN_NAME --per_device_train_batch_size 1 --per_device_eval_batch_size 2 --generation_num_beams 4 --generation_max_length 512 --input_max_length 1088 > $RUN_NAME.log 2>&1 &
+python -m torch.distributed.launch --nproc_per_node 4 --master_port 1234 train.py --seed 2 --cfg Salesforce/T5_base_finetune_wikitq.cfg --run_name T5_base_finetune_wikitq --logging_strategy steps --logging_first_step true --logging_steps 4 --evaluation_strategy steps --eval_steps 500 --metric_for_best_model avr --greater_is_better true --save_strategy steps --save_steps 500 --save_total_limit 1 --load_best_model_at_end --gradient_accumulation_steps 8 --num_train_epochs 400 --adafactor true --learning_rate 5e-5 --do_train --do_eval --do_predict --predict_with_generate --output_dir output/T5_base_finetune_wikitq --overwrite_output_dir --per_device_train_batch_size 4 --per_device_eval_batch_size 16 --generation_num_beams 4 --generation_max_length 128 --input_max_length 1024 --ddp_find_unused_parameters true
+``````
+If you want to resume training, remove the ``--overwrite_output_dir`` flag from the above command:
+``````shell
+python -m torch.distributed.launch --nproc_per_node 4 --master_port 1234 train.py --seed 2 --cfg Salesforce/T5_base_finetune_wikitq.cfg --run_name T5_base_finetune_wikitq --logging_strategy steps --logging_first_step true --logging_steps 4 --evaluation_strategy steps --eval_steps 500 --metric_for_best_model avr --greater_is_better true --save_strategy steps --save_steps 500 --save_total_limit 1 --load_best_model_at_end --gradient_accumulation_steps 8 --num_train_epochs 400 --adafactor true --learning_rate 5e-5 --do_train --do_eval --do_predict --predict_with_generate --output_dir output/T5_base_finetune_wikitq --per_device_train_batch_size 4 --per_device_eval_batch_size 16 --generation_num_beams 4 --generation_max_length 128 --input_max_length 1024 --ddp_find_unused_parameters true
 ``````
 
-Training from scratch
-
+T5-base prefix-tuning on WikiTQ (4 GPUs, 128 effective batch size)
 ``````shell
-export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-export RUN_NAME=finetune_9tasks_01eval_bsz32_dist
-nohup python -m torch.distributed.launch --nproc_per_node 8 --master_port 1234 train.py --cfg META_TUNING/T5_finetune.cfg --report_to wandb --run_name $RUN_NAME --logging_strategy steps --logging_first_step true --logging_steps 4 --evaluation_strategy steps --eval_steps 500 --metric_for_best_model avr --greater_is_better true --save_strategy steps --save_steps 500 --save_total_limit 15 --load_best_model_at_end --gradient_accumulation_steps 4 --num_train_epochs 20 --adafactor true --learning_rate 5e-5 --do_train --do_eval --do_predict --predict_with_generate --output_dir output/$RUN_NAME --overwrite_output_dir --per_device_train_batch_size 1 --per_device_eval_batch_size 2 --generation_num_beams 4 --generation_max_length 512 --input_max_length 1088 > $RUN_NAME.log 2>&1 &
+python -m torch.distributed.launch --nproc_per_node 4 --master_port 1234 train.py --seed 2 --cfg Salesforce/T5_base_prefix_wikitq.cfg --run_name T5_base_prefix_wikitq --logging_strategy steps --logging_first_step true --logging_steps 4 --evaluation_strategy steps --eval_steps 500 --metric_for_best_model avr --greater_is_better true --save_strategy steps --save_steps 500 --save_total_limit 1 --load_best_model_at_end --gradient_accumulation_steps 8 --num_train_epochs 400 --adafactor true --learning_rate 5e-5 --do_train --do_eval --do_predict --predict_with_generate --output_dir output/T5_base_prefix_wikitq --overwrite_output_dir --per_device_train_batch_size 4 --per_device_eval_batch_size 16 --generation_num_beams 4 --generation_max_length 128 --input_max_length 1024 --ddp_find_unused_parameters true
 ``````
 
-Single-task prefix-tuning
-
+T5-3b finetuning on WikiTQ (8 GPUs, 128 effective batch size)
 ``````shell
-export CUDA_VISIBLE_DEVICES=0,1,2,3
-export RUN_NAME=post_spider_prefix_9tasks_1eval_bsz64_dist
-nohup python -m torch.distributed.launch --nproc_per_node 4 --master_port 1234 train.py --cfg META_TUNING/T5_prefix_freeze.cfg --report_to wandb --run_name $RUN_NAME --logging_strategy steps --logging_first_step true --logging_steps 4 --evaluation_strategy steps --eval_steps 100 --metric_for_best_model avr --greater_is_better true --save_strategy steps --save_steps 500 --save_total_limit 15 --load_best_model_at_end --gradient_accumulation_steps 16 --num_train_epochs 20 --adafactor true --learning_rate 5e-5 --do_train --do_eval --do_predict --predict_with_generate --output_dir output/$RUN_NAME --load_weights_from output/prefix_9tasks_01eval_bsz32_dist/checkpoint-11500 --overwrite_output_dir --per_device_train_batch_size 1 --per_device_eval_batch_size 2 --generation_num_beams 4 --generation_max_length 512 --input_max_length 1350 > $RUN_NAME.log 2>&1 &
+deepspeed train.py --deepspeed deepspeed/ds_config_zero2.json --seed 2 --cfg Salesforce/T5_3b_finetune_wikitq.cfg --run_name T5_3b_finetune_wikitq --logging_strategy steps --logging_first_step true --logging_steps 4 --evaluation_strategy steps --eval_steps 500 --metric_for_best_model avr --greater_is_better true --save_strategy steps --save_steps 500 --save_total_limit 1 --load_best_model_at_end --gradient_accumulation_steps 16 --num_train_epochs 50 --adafactor false --learning_rate 5e-5 --do_train --do_eval --do_predict --predict_with_generate --output_dir output/T5_3b_finetune_wikitq --overwrite_output_dir --per_device_train_batch_size 1 --per_device_eval_batch_size 1 --generation_num_beams 4 --generation_max_length 128 --input_max_length 1024 --ddp_find_unused_parameters true
 ``````
-
-*And if you are using [tmux](https://en.wikipedia.org/wiki/Tmux), you can also open new sessions and sub-sessions to run seperate scripts on it, instead of using "nohup" and "&" to make the code run in background. 
-
-### Deepspeed
-
-Training from scratch
-
-``````shell
-export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-export RUN_NAME=finetune_9tasks_01eval_bsz32_fp16_deepspeed
-nohup deepspeed --include localhost:0,1,2,3,4,5,6,7 train.py --deepspeed deepspeed/ds_config_zero1.json --fp16 --cfg META_TUNING/T5_finetune.cfg --report_to wandb --run_name $RUN_NAME --logging_strategy steps --logging_first_step true --logging_steps 4 --evaluation_strategy steps --eval_steps 500 --metric_for_best_model avr --greater_is_better true --save_strategy steps --save_steps 500 --save_total_limit 15 --load_best_model_at_end --gradient_accumulation_steps 8 --num_train_epochs 20 --learning_rate 5e-5 --do_train --do_eval --do_predict --predict_with_generate --output_dir output/$RUN_NAME --overwrite_output_dir --per_device_train_batch_size 1 --per_device_eval_batch_size 2 --generation_num_beams 4 --generation_max_length 512 --input_max_length 1440 > $RUN_NAME.log 2>&1 &
-``````
-
-### With [wandb](https://wandb.ai/) report
-
-[wandb platform](https://docs.wandb.ai/) is a useful tool for us to track experiments, version and iterate on datasets, evaluate model performance, reproduce models, visualize results and spot regressions, and share findings. We highly recommand using this platform to versialize, track and share results. 
-
-To use that in our framework, you can change the env parameter WANDB_API_KEY, WANDB_PROJECT(you need to have a quick register on the wandb platform), and other task/training hyperparameter and use the shell below:
-
-
 
 ## Introduction of each file
 
