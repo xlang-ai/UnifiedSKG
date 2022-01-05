@@ -16,10 +16,7 @@
 
 - [UnifiedSKG: A Unified Framework and Analysis for **S**tructured **K**nowledge **G**rounding](#unifiedskg--a-unified-framework-and-analysis-for---s--tructured---k--nowledge-grounding)
   * [Cloning this Repo](#cloning-this-repo)
-  * [Dependency](#dependency)
-    + [Sub-Modules](#sub-modules)
-      - [~~TaPEx~~（we adopted its table processor into our code to do some changes）](#--tapex---we-adopted-its-table-processor-into-our-code-to-do-some-changes-)
-      - [TaBERT](#tabert)
+  * [Dependencies](#dependencies)
   * [Usage](#usage)
     + [Environment setup](#environment-setup)
     + [Training](#training)
