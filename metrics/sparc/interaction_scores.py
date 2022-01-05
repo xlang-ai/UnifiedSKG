@@ -209,8 +209,9 @@ def compute_interaction_metric(predictions, references) -> Dict[str, Any]:
                 g_turns_list.append(g_turns)
                 p_turns_list.append(p_turns)
                 g_turns, p_turns = [], []
-        g_turns.append((reference['query'].lower().replace("! =", "!=").replace("where where", "where"), reference['db_id']))
-        p_turns.append((prediction.lower().replace("! =", "!=").replace("where where", "where"),  reference['db_id']))
+        else:
+            g_turns.append((reference['query'].lower().replace("! =", "!=").replace("where where", "where"), reference['db_id']))
+            p_turns.append((prediction.lower().replace("! =", "!=").replace("where where", "where"),  reference['db_id']))
 
     g_turns_list.append(g_turns)  # add the last turn
     p_turns_list.append(p_turns)
