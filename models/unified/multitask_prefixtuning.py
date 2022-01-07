@@ -1,9 +1,13 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from collections import OrderedDict
 
 import torch
 from torch import nn
 from transformers import AutoTokenizer
 
+from .base import PushToHubFriendlyModel
 from ..prompt.modeling_auto import AutoModelForSeq2SeqLM
 
 
@@ -171,7 +175,7 @@ def aggregate_prompt(
     return constructed_prompt
 
 
-class Model(nn.Module):
+class Model(PushToHubFriendlyModel):
     def __init__(self, args):
         super().__init__()
         self.args = args

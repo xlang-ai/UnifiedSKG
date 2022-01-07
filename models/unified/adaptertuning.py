@@ -1,11 +1,14 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import torch
 from torch import nn
 from transformers import AutoTokenizer
-
+from .base import PushToHubFriendlyModel
 from ..adapter.modeling_auto import AutoModelForSeq2SeqLM
 
 
-class Model(nn.Module):
+class Model(PushToHubFriendlyModel):
     def __init__(self, args):
         super().__init__()
         self.args = args
