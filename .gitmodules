@@ -1,18 +1,1 @@
-[submodule "third_party/spider"]
-	path = third_party/spider
-	url = https://github.com/elementai/spider
-[submodule "third_party/test_suite"]
-	path = third_party/test_suite
-	url = https://github.com/elementai/test-suite-sql-eval
-[submodule "third_party/tokenizers"]
-	path = third_party/tokenizers
-	url = https://github.com/hasktorch/tokenizers
-[submodule "third_party/table_pretraining"]
-	path = third_party/table_pretraining
-	url = https://github.com/microsoft/Table-Pretraining
-[submodule "third_party/zero_shot_dst"]
-	path = third_party/zero_shot_dst
-	url = https://github.com/facebookresearch/Zero-Shot-DST
-[submodule "third_party/tabert"]
-	path = third_party/tabert
-	url = https://github.com/facebookresearch/TaBERT.git
+

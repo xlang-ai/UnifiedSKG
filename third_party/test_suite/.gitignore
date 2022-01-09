@@ -1,5 +1,0 @@
-database/*
-*/*.pyc
-tmp
-!database/readme.txt
-!tmp/readme.txt

@@ -1,6 +1,0 @@
-cradle:
-  stack:
-    - path: "./src"
-      component: "tokenizers:lib"
-    - path: "./test/Spec.hs"
-      component: "tokenizers:test:tokenizers-test"

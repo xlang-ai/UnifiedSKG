@@ -1,7 +1,0 @@
-resolver: lts-17.9
-
-packages:
-- .
-
-extra-lib-dirs:
-  - ./lib
