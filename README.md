@@ -1,7 +1,17 @@
 # UnifiedSKG:books:: Unifying Structured Knowledge Grounding with Text-to-Text Language Models
 
-![](https://img.shields.io/github/last-commit/HKUNLP/UnifiedSKG?color=green) ![](https://img.shields.io/badge/PRs-Welcome-red) 
-
+<p align="left">
+    <a href="https://img.shields.io/badge/PRs-Welcome-red">
+        <img src="https://img.shields.io/badge/PRs-Welcome-red">
+    </a>
+    <a href="https://img.shields.io/github/last-commit/HKUNLP/UnifiedSKG?color=green">
+        <img src="https://img.shields.io/github/last-commit/HKUNLP/UnifiedSKG?color=green">
+    </a>
+    <a href="https://colab.research.google.com/drive/1f9yTXC3GpSyRJOjzsKceG_bhk-Cw71Ga#scrollTo=r_3-DN0SvC97">
+        <img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg">
+    </a>
+    <br/>
+</p>
 
 
 <img src="pics/logos.png" align="middle" width="98%">
