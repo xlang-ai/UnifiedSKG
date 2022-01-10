@@ -152,22 +152,19 @@ deepspeed train.py --deepspeed deepspeed/ds_config_zero2.json --seed 2 --cfg Sal
 
 ### [configure](https://github.com/HKUNLP/UnifiedSKG/tree/master/configure)
 
-Code for configuration of different tasks/settings,
-more details see README in [./configure](https://github.com/HKUNLP/UnifiedSKG/tree/master/configure)
+Code for configuration of different tasks/settings, more details see README in [./configure](https://github.com/HKUNLP/UnifiedSKG/tree/master/configure)
 
 ### [metrics](https://github.com/HKUNLP/UnifiedSKG/tree/master/metrics)
-Code for evaluating the prediction of our model,
-more details see README in [./metrics](https://github.com/HKUNLP/UnifiedSKG/tree/master/metrics)
+Code for evaluating the prediction of our model, more details see README in [./metrics](https://github.com/HKUNLP/UnifiedSKG/tree/master/metrics)
 
 ### [models](https://github.com/HKUNLP/UnifiedSKG/tree/master/models)
 Code for models(for now, we have seq2seq models(T5 and BART) and prompt-tuning models(prefix-tuning)
 
 ### [seq2seq_construction](https://github.com/HKUNLP/UnifiedSKG/tree/master/seq2seq_construction)
-Code for evaluating the prediction of our model,
-more details see README in [./seq2seq_construction](https://github.com/HKUNLP/UnifiedSKG/tree/master/seq2seq_construction)
+Code for evaluating the prediction of our model, more details see README in [./seq2seq_construction](https://github.com/HKUNLP/UnifiedSKG/tree/master/seq2seq_construction)
 
 ### [third_party](https://github.com/HKUNLP/UnifiedSKG/tree/master/third_party)
-packages from the third party for us to tmp store, and we will redirect them by git recursive deployment in the end. 
+Packages from the third party for us to tmp store, and we will redirect them by git recursive deployment in the end. 
 
 ### [utils](https://github.com/HKUNLP/UnifiedSKG/tree/master/utils)
 Code for some useful(or not) stuff, it contains:
@@ -176,8 +173,7 @@ into a more main-stream structure which also support read from the file and crea
 - **dataset.py**: Wrap the seq2seq dataset to tokenize the "seq_in" and "seq_out", since the trainer only support tokenized tensors of "seq_input" and "seq_output" as input
 - **tool.py**: The tool to **get datasets, models and evaluators in a unified way**. 
 - **trainer.py**: The **modified trainer version** of huggingface trainer class **for supporting meta-tuning**(we want get our training sampler under our control), 
-**easier evaluation**(the metrics of huggingface's input format(numbers) is contradicted with ones of all official evaluations)
- and **further changes in this project**(for example, we want to feed more para in a model.forward function).
+**easier evaluation**(the metrics of huggingface's input format(numbers) is contradicted with ones of all official evaluations) and **further changes in this project**(for example, we want to feed more para in a model.forward function).
 - **training_arguments.py**: The **customized wrapped training_arguments**.
 
 ### train.py
@@ -190,32 +186,38 @@ raw data(s) -> + seq2seq data(s) ("seq_in" and "seq_out") -> tokenized -> seq2se
 ## The overview file structure of this Unified Framework
     .
     ├── configure                          # Code for configuration of different tasks/settings
-    |   ├── META_TUNING # config files for running meta-tuning, some are father config controls which tasks to involve,
-     some are child configs only have info of specific task
-    │   ├── UNIFIED # config files for running the unified seq2seq tasks.
-    │   ├── ...
-    ├── metrics                       # Code for evaluating the prediction of our model
-    │   ├── ...                     # each file contains a evaluator of the corresponding task
-    ├── models                       # Code for models
-    │   ├── prompt # the modified hugginface transformers, where we realized prefix-tuning in T5 and BART.
-    |   ├── unified
-    |       ├──finetune.py # model of the bare finetune
-    |       ├──prefixtuning.py # model of the prefix-tuning, the prompt getting methods followed one of BART in original paper
+    │   ├── META_TUNING # meta config for each task, controls how we construct it to seq2seq data
+    │   └── Salesforce # configs of our experiments settings, also thanks to ElementAI, Rui Zhang
+    │
+    ├── metrics                       # code for evaluating the prediction of our model
+    │   └── ...                     # each file contains a evaluator of the corresponding task
+    ├── models                       # code for models
+    │   ├── adapter # the overwritten hugginface transformers, where we realized adapter in T5 and BART.
+    │   ├── prompt # the overwritten hugginface transformers, where we realized prefix-tuning in T5 and BART.
+    │   └── unified
+    │           ├── base.py # base model for better push to huggingface arxiv(so called PushToHubFriendlyModel)
+    │           ├── finetune.py # model of the bare finetune
+    │           ├── adaptertuning.py # model of adapter-tuning,
+    │           ├── prefixtuning.py # model of the prefix-tuning, the prompt getting methods followed one of BART in original paper
+    │           └── multitask_prefixtuning.py # model of the mult-task prefix-tuning, support load from different single task prefix and make interaction on them(separate, concat...), but we didn't get satisfying result by doing so. Multi-task in our paper analysis section is SPoT-like.
+    │
     ├── seq2seq_construction                       # Code for wrap the raw data into seq_in and seq_out and add them
-    │   ├── ... # check the README in the ./seq2seq_construction
+    │    └──  ... # check the README in the ./seq2seq_construction
+    │
     ├── tasks                       # Code for encoder-decoder architecture
-    │   ├── ... # check the README in the ./tasks
+    │    └──  ... # check the README in the ./tasks
+    │
     ├── third_party                       # packages from the third party
-    │   ├── ...  # if you use any github repo from others, try to put them in this dir, and note the links in the .submodules 
-    for us to make them easier to e added by the recursive clone of git.
+    │    └──  ...  # if you use any github repo from others, try to put them in this dir, and note the links in the .submodules for us to make them easier to added by the recursive clone of git.
+    │
     ├── utils                       # Code for some useful(or not) stuff
-    │   ├── __init__.py             
-    │   ├── configure.py           # the util for parsing the cfg file in ./configure, will get nested args object which is human friendly.
-    │   ├── dataset.py               # wrap the seq2seq dataset constructed, tokenize the seq_in and seq_out for feed into the trainer.
-    │   ├── tool.py         # Use the reflection to help loading model, seq2seq constructor and evaluator
-    │   ├── trainer.py                  # we changed the original trainer into the EvaluationFriendlyTrainer in this file, for easier eval, also we controled the sequence of trainer to be in original order, 
-    and add description in it, if you want make any modifications in forward of the models, you may need to change something in here.
-    │   └── training_arguments.py              # wrapped training arguments for seq2seq
+    │       ├── processor           # adopted from Tapex, processor for handling structured knowledge like table(truncation, linearized etc.) 
+    │       ├── configure.py           # the util for parsing the cfg file in ./configure, will get nested args object which is human friendly.
+    │       ├── dataset.py               # wrap the seq2seq dataset constructed, tokenize the seq_in and seq_out for feed into the trainer.
+    │       ├── tool.py         # Use the reflection to help loading model, seq2seq constructor and evaluator
+    │       └── trainer.py                  # we changed the original trainer into the EvaluationFriendlyTrainer in this file, for easier eval, also we controled the sequence of trainer to be in original order, and add description in it, if you want make any modifications in forward of the models, you may need to change something in here.
+    │       └── training_arguments.py              # wrapped training arguments for seq2seq
+    │
     ├── .gitignore              # use to ignored some tast or debug files in your desktop
     ├── .gitmodules           # use the recursive clone of the git, will be used to create files in ./third_party at last
     ├── py3.7pytorch1.8.yaml     # help you clone the anaconda env
