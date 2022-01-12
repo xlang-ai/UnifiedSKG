@@ -31,9 +31,8 @@ The code for paper [UnifiedSKG: Unifying and Multi-Tasking Structured KnowledgeG
   * [Dependencies](#dependencies)
   * [Usage](#usage)
     + [Environment setup](#environment-setup)
+    + [Wandb setup](#wandb-setup)
     + [Training](#training)
-    + [Deepspeed](#deepspeed)
-    + With [wandb](https://wandb.ai/) report
   * [Introduction of each file](#introduction-of-each-file)
     + [configure](https://github.com/HKUNLP/UnifiedSKG/tree/master/configure)
     + [metrics](https://github.com/HKUNLP/UnifiedSKG/tree/master/metrics)
@@ -116,17 +115,18 @@ we will compress them to create a docker environment in the end.
 ## Usage
 
 ### Environment setup
+Activate the environment by running
+``````shell
+conda activate py3.7pytorch1.8
+``````
 
-Setup [W & B](https://wandb.ai/) for logging (registration needed):
+### WandB setup
+
+Setup [WandB](https://wandb.ai/) for logging (registration needed):
 ``````shell
 export WANDB_ENTITY=YOUR_WANDB_USERNAME
 export WANDB_API_KEY=YOUR_WANDB_API_KEY
 export WANDB_PROJECT=YOUR_PROJECT_NAME
-``````
-
-Activate the environment
-``````shell
-conda activate py3.7pytorch1.8
 ``````
 
 ### Training
