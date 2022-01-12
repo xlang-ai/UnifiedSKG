@@ -237,11 +237,11 @@ raw data(s) -> + seq2seq data(s) ("seq_in" and "seq_out") -> tokenized -> seq2se
 
 - **step 2**, Add the "Wrapper" which construct "seq_in"("user request input" & "structured knowledge input") and "seq_out" from and add to the raw_data for seq2seq unification.
 
-- **step 3**, Add the evaluator(evaluate a task) in ./metrics. if use third_party repo, please add them into the ./third_party. dir
+- **step 3**, Add the "Evaluator"(for task) in ./metrics. if any third_party repo are used, please add them into [.gitmodules](https://git-scm.com/docs/gitmodules).
 
-- **step 3.5(optional)**, You can always add new models into the ./models/ if you like, change the path in config files to drive new model.
+- **step 3.5(optional)**, You can always add new "Model" into the ./models/ if you like, change the path in config files to drive new model.
 
-- **step 4**, Add the config file to drive your task or all the tasks we have by finetune/multi-task-finetune/pretrain/prefix-tuning/multi-task-prefix-tuning... or other ways. 
+- **step 4**, Add the "Config" file to drive your task or all the tasks we have by finetune/multi-task-finetune/pretrain/prefix-tuning/multi-task-prefix-tuning... or other ways. 
 
 **And this is all for it ! =)**
 
