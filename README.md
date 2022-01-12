@@ -13,7 +13,7 @@
     <br/>
 </p>
 
-The code for paper [UnifiedSKG: Unifying and Multi-Tasking Structured Knowledge Grounding with Text-to-Text Language Models](), a **Unified Framework and Analysis for Structured Knowledge Grounding**
+The code for paper [UnifiedSKG: Unifying and Multi-Tasking Structured Knowledge Grounding with Text-to-Text Language Models](https://unifiedskg.com/), a **Unified Framework and Analysis for Structured Knowledge Grounding**
 
 <img src="pics/logos.png" align="middle" width="98%">
 
