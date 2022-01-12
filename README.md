@@ -13,6 +13,7 @@
     <br/>
 </p>
 
+The code for paper [UnifiedSKG: Unifying and Multi-Tasking Structured KnowledgeGrounding with Text-to-Text Language Models](), a **Unified Framework and Analysis for Structured Knowledge Grounding**
 
 <img src="pics/logos.png" align="middle" width="98%">
 
@@ -20,7 +21,8 @@
 
 **UNIFIEDSKG** is easily extensible to more tasks. We encourage the researchers that want to promote their fantastic work to the community to make **pull request** to update their datasets, metrics, models! 
 
-
+## Updates
+- **2022-01-13**: We released our [paper]() and [home page](https://unifiedskg.com). Check it out!
 
 ## Content
 
@@ -147,7 +149,7 @@ T5-3b finetuning on WikiTQ (8 GPUs, 128 effective batch size)
 ``````shell
 deepspeed train.py --deepspeed deepspeed/ds_config_zero2.json --seed 2 --cfg Salesforce/T5_3b_finetune_wikitq.cfg --run_name T5_3b_finetune_wikitq --logging_strategy steps --logging_first_step true --logging_steps 4 --evaluation_strategy steps --eval_steps 500 --metric_for_best_model avr --greater_is_better true --save_strategy steps --save_steps 500 --save_total_limit 1 --load_best_model_at_end --gradient_accumulation_steps 16 --num_train_epochs 50 --adafactor false --learning_rate 5e-5 --do_train --do_eval --do_predict --predict_with_generate --output_dir output/T5_3b_finetune_wikitq --overwrite_output_dir --per_device_train_batch_size 1 --per_device_eval_batch_size 1 --generation_num_beams 4 --generation_max_length 128 --input_max_length 1024 --ddp_find_unused_parameters true
 ``````
-
+<!--
 ## Introduction of each file
 
 ### [configure](https://github.com/HKUNLP/UnifiedSKG/tree/master/configure)
@@ -182,6 +184,7 @@ into a more main-stream structure which also support read from the file and crea
 ### Procedure
 The working procedure of our work follows:
 raw data(s) -> + seq2seq data(s) ("seq_in" and "seq_out") -> tokenized -> seq2seq_trainer -> predictions -> eval(s)
+-->
 
 ## The overview file structure of this Unified Framework
     .
@@ -236,13 +239,21 @@ raw data(s) -> + seq2seq data(s) ("seq_in" and "seq_out") -> tokenized -> seq2se
 
 - **step 3**, Add the evaluator(evaluate a task) in ./metrics. if use third_party repo, please add them into the ./third_party. dir
 
-- ***step 3.5(optional)**, You can always add new models into the ./models/unified id you like.
+- **step 3.5(optional)**, You can always add new models into the ./models/ if you like, change the path in config files to drive new model.
 
-- **step 4**, Add the config file to drive your task or all the tasks we have by finetune/prefix-tuning/multi-task-finetune/pretrain... or other ways. 
+- **step 4**, Add the config file to drive your task or all the tasks we have by finetune/multi-task-finetune/pretrain/prefix-tuning/multi-task-prefix-tuning... or other ways. 
 
 **And this is all for it ! =)**
 
-
+## Contributors
+<a href="https://github.com/Timothyxxx">  <img src="https://avatars.githubusercontent.com/u/47296835?v=4"  width="50" /></a> 
+<a href="https://github.com/ChenWu98"><img src="https://avatars.githubusercontent.com/u/28187501?v=4"  width="50" /></a> 
+<a href="https://github.com/Impavidity">  <img src="https://avatars.githubusercontent.com/u/9245607?v=4"  width="50" /></a> 
+<a href="https://github.com/michiyasunaga"><img src="https://avatars.githubusercontent.com/u/25519127?v=4"  width="50" /></a>
+<a href="https://github.com/cascadianblue"><img src="https://avatars.githubusercontent.com/u/6520892?v=4"  width="50" /></a>
+<a href="https://github.com/chengzu-li"><img src="https://avatars.githubusercontent.com/u/69832207?v=4"  width="50" /></a>
+<a href="https://github.com/jasonwu0731"><img src="https://avatars.githubusercontent.com/u/14951842?v=4"  width="50" /></a>
+<a href="https://github.com/HKUNLP/UnifiedSKG/pulls"><img src="https://blog.simtics.com/wp-content/uploads/2016/03/you.jpg"  width="50" /></a>
 
 ## Ackonwledgement
 We would like to thank [Yifei Min](https://statistics.yale.edu/people/yifei-min) and [Libo Qin](http://ir.hit.edu.cn/~lbqin/) for early stage discussion, [Qian Liu](https://siviltaram.github.io/) for [TAPEX code](https://github.com/microsoft/Table-Pretraining) and advice on Question Answering tasks, [Ice Pasupat](https://ppasupat.github.io/) for reviewing this paper, [wandb](https://wandb.ai/) for free logging, and [OpenAI](https://openai.com/) for free Codex usage.
