@@ -22,7 +22,7 @@ The code for paper [UnifiedSKG: Unifying and Multi-Tasking Structured KnowledgeG
 **UNIFIEDSKG** is easily extensible to more tasks. We encourage the researchers that want to promote their fantastic work to the community to make **pull request** to update their datasets, metrics, models! 
 
 ## Updates
-- **2022-01-13**: We released our [paper]() and [home page](https://unifiedskg.com). Check it out!
+- **2022-01-12**: We released our [code](https://github.com/HKUNLP/UnifiedSKG), [colab demo](https://colab.research.google.com/drive/1f9yTXC3GpSyRJOjzsKceG_bhk-Cw71Ga#scrollTo=r_3-DN0SvC97), [weights](https://huggingface.co/hkunlp) and [home page](https://unifiedskg.com). Check it out!
 
 ## Content
 
