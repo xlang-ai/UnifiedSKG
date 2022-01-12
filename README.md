@@ -13,7 +13,7 @@
     <br/>
 </p>
 
-The code for paper [UnifiedSKG: Unifying and Multi-Tasking Structured KnowledgeGrounding with Text-to-Text Language Models](), a **Unified Framework and Analysis for Structured Knowledge Grounding**
+The code for paper [UnifiedSKG: Unifying and Multi-Tasking Structured Knowledge Grounding with Text-to-Text Language Models](), a **Unified Framework and Analysis for Structured Knowledge Grounding**
 
 <img src="pics/logos.png" align="middle" width="98%">
 
@@ -33,6 +33,7 @@ The code for paper [UnifiedSKG: Unifying and Multi-Tasking Structured KnowledgeG
     + [Environment setup](#environment-setup)
     + [Wandb setup](#wandb-setup)
     + [Training](#training)
+    + [Load Weight](#load-weight)
   * [Introduction of each file](#introduction-of-each-file)
     + [configure](https://github.com/HKUNLP/UnifiedSKG/tree/master/configure)
     + [metrics](https://github.com/HKUNLP/UnifiedSKG/tree/master/metrics)
@@ -149,6 +150,12 @@ T5-3b finetuning on WikiTQ (8 GPUs, 128 effective batch size)
 ``````shell
 deepspeed train.py --deepspeed deepspeed/ds_config_zero2.json --seed 2 --cfg Salesforce/T5_3b_finetune_wikitq.cfg --run_name T5_3b_finetune_wikitq --logging_strategy steps --logging_first_step true --logging_steps 4 --evaluation_strategy steps --eval_steps 500 --metric_for_best_model avr --greater_is_better true --save_strategy steps --save_steps 500 --save_total_limit 1 --load_best_model_at_end --gradient_accumulation_steps 16 --num_train_epochs 50 --adafactor false --learning_rate 5e-5 --do_train --do_eval --do_predict --predict_with_generate --output_dir output/T5_3b_finetune_wikitq --overwrite_output_dir --per_device_train_batch_size 1 --per_device_eval_batch_size 1 --generation_num_beams 4 --generation_max_length 128 --input_max_length 1024 --ddp_find_unused_parameters true
 ``````
+
+### Load Weight
+See <a href="https://colab.research.google.com/drive/1f9yTXC3GpSyRJOjzsKceG_bhk-Cw71Ga#scrollTo=r_3-DN0SvC97">
+        <img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg">
+    </a>
+ 
 <!--
 ## Introduction of each file
 
