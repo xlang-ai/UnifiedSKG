@@ -1,4 +1,4 @@
-# UnifiedSKG:books:: Unifying Structured Knowledge Grounding with Text-to-Text Language Models
+# UnifiedSKG:books:: Unifying and Multi-Tasking Structured Knowledge Grounding with Text-to-Text Language Models
 
 <p align="left">
     <a href="https://img.shields.io/badge/PRs-Welcome-red">
@@ -49,7 +49,7 @@ Code for paper [UnifiedSKG: Unifying and Multi-Tasking Structured Knowledge Grou
 
 
 
-## Cloning this Repo
+## Cloning this repo
 
 In order to include third-party dependencies in this repository, make sure to clone recursively, e.g.:
 
@@ -150,7 +150,7 @@ T5-3b finetuning on WikiTQ (8 GPUs, 128 effective batch size)
 deepspeed train.py --deepspeed deepspeed/ds_config_zero2.json --seed 2 --cfg Salesforce/T5_3b_finetune_wikitq.cfg --run_name T5_3b_finetune_wikitq --logging_strategy steps --logging_first_step true --logging_steps 4 --evaluation_strategy steps --eval_steps 500 --metric_for_best_model avr --greater_is_better true --save_strategy steps --save_steps 500 --save_total_limit 1 --load_best_model_at_end --gradient_accumulation_steps 16 --num_train_epochs 50 --adafactor false --learning_rate 5e-5 --do_train --do_eval --do_predict --predict_with_generate --output_dir output/T5_3b_finetune_wikitq --overwrite_output_dir --per_device_train_batch_size 1 --per_device_eval_batch_size 1 --generation_num_beams 4 --generation_max_length 128 --input_max_length 1024 --ddp_find_unused_parameters true
 ``````
 
-### Load Weight
+### Load weights
 See <a href="https://colab.research.google.com/drive/1f9yTXC3GpSyRJOjzsKceG_bhk-Cw71Ga#scrollTo=r_3-DN0SvC97">
         <img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg">
     </a>
@@ -192,7 +192,7 @@ The working procedure of our work follows:
 raw data(s) -> + seq2seq data(s) ("seq_in" and "seq_out") -> tokenized -> seq2seq_trainer -> predictions -> eval(s)
 -->
 
-## The overview file structure of this Unified Framework
+## The overview file structure of UnifiedSKG framework
     .
     ├── configure                          # Code for configuration of different tasks/settings
     │   ├── META_TUNING # meta config for each task, controls how we construct it to seq2seq data
@@ -235,7 +235,7 @@ raw data(s) -> + seq2seq data(s) ("seq_in" and "seq_out") -> tokenized -> seq2se
 
 
 
-## How to unify a new task into the framework
+## How to unify a new task into the framework?
 
 (README in ./tasks, ./seq2seq_construction, ./metrics, ./configure can also be useful)
 
