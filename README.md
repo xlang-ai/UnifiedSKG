@@ -13,7 +13,7 @@
     <br/>
 </p>
 
-The code for paper [UnifiedSKG: Unifying and Multi-Tasking Structured Knowledge Grounding with Text-to-Text Language Models](https://unifiedskg.com/), a **Unified Framework and Analysis for Structured Knowledge Grounding**
+Code for paper [UnifiedSKG: Unifying and Multi-Tasking Structured Knowledge Grounding with Text-to-Text Language Models](https://taoyds.github.io/assets/publications/unifiedskg.pdf). Please refer to our [project page](https://unifiedskg.com/) for up-to-date related resources (e.g., papers, code, tools, tutorials) in Structured Knowledge Grounding. 
 
 <img src="pics/logos.png" align="middle" width="98%">
 
@@ -261,9 +261,6 @@ raw data(s) -> + seq2seq data(s) ("seq_in" and "seq_out") -> tokenized -> seq2se
 <a href="https://github.com/chengzu-li"><img src="https://avatars.githubusercontent.com/u/69832207?v=4"  width="50" /></a>
 <a href="https://github.com/jasonwu0731"><img src="https://avatars.githubusercontent.com/u/14951842?v=4"  width="50" /></a>
 <a href="https://github.com/HKUNLP/UnifiedSKG/pulls"><img src="https://blog.simtics.com/wp-content/uploads/2016/03/you.jpg"  width="50" /></a>
-
-## Ackonwledgement
-We would like to thank [Yifei Min](https://statistics.yale.edu/people/yifei-min) and [Libo Qin](http://ir.hit.edu.cn/~lbqin/) for early stage discussion, [Qian Liu](https://siviltaram.github.io/) for [TAPEX code](https://github.com/microsoft/Table-Pretraining) and advice on Question Answering tasks, [Ice Pasupat](https://ppasupat.github.io/) for reviewing this paper, [wandb](https://wandb.ai/) for free logging, and [OpenAI](https://openai.com/) for free Codex usage.
 
 
 
