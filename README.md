@@ -42,10 +42,9 @@ Code for paper [UnifiedSKG: Unifying and Multi-Tasking Structured Knowledge Grou
     + [third_party](https://github.com/HKUNLP/UnifiedSKG/tree/master/third_party)
     + [utils](https://github.com/HKUNLP/UnifiedSKG/tree/master/utils)
     + [train.py](#trainpy)
-    + [Procedure](#procedure)
   * [The overview file structure of this Unified Framework](#the-overview-file-structure-of-this-unified-framework)
   * [How to unify a new task into the framework](#how-to-unify-a-new-task-into-the-framework)
-  * [Ackonwledgement](#ackonwledgement)
+  * [Contributors](#contributors)
 
 
 
