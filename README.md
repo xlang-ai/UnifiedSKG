@@ -33,7 +33,7 @@ Code for paper [UnifiedSKG: Unifying and Multi-Tasking Structured Knowledge Grou
     + [Environment setup](#environment-setup)
     + [Wandb setup](#wandb-setup)
     + [Training](#training)
-    + [Load Weight](#load-weight)
+    + [Load Weight](#load-weights)
   * [Introduction of each file](#introduction-of-each-file)
     + [configure](https://github.com/HKUNLP/UnifiedSKG/tree/master/configure)
     + [metrics](https://github.com/HKUNLP/UnifiedSKG/tree/master/metrics)
