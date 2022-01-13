@@ -34,15 +34,14 @@ Code for paper [UnifiedSKG: Unifying and Multi-Tasking Structured Knowledge Grou
     + [Wandb setup](#wandb-setup)
     + [Training](#training)
     + [Load Weight](#load-weights)
-  * [Introduction of each file](#introduction-of-each-file)
+  * Introduction of each directory
     + [configure](https://github.com/HKUNLP/UnifiedSKG/tree/master/configure)
     + [metrics](https://github.com/HKUNLP/UnifiedSKG/tree/master/metrics)
     + [models](https://github.com/HKUNLP/UnifiedSKG/tree/master/models)
     + [seq2seq_construction](https://github.com/HKUNLP/UnifiedSKG/tree/master/seq2seq_construction)
     + [third_party](https://github.com/HKUNLP/UnifiedSKG/tree/master/third_party)
     + [utils](https://github.com/HKUNLP/UnifiedSKG/tree/master/utils)
-    + [train.py](#trainpy)
-  * [The overview file structure of this Unified Framework](#the-overview-file-structure-of-this-unified-framework)
+  * [The overview file structure of this Unified Framework](#the-overview-file-structure-of-unifiedskg-framework)
   * [How to unify a new task into the framework](#how-to-unify-a-new-task-into-the-framework)
   * [Contributors](#contributors)
 
