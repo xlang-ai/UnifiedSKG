@@ -33,7 +33,7 @@ Code for paper [UnifiedSKG: Unifying and Multi-Tasking Structured Knowledge Grou
     + [Environment setup](#environment-setup)
     + [Wandb setup](#wandb-setup)
     + [Training](#training)
-    + [Load Weight](#load-weights)
+    + [Load weight](#load-weights)
   * Introduction of each directory
     + [configure](https://github.com/HKUNLP/UnifiedSKG/tree/master/configure)
     + [metrics](https://github.com/HKUNLP/UnifiedSKG/tree/master/metrics)
@@ -68,7 +68,7 @@ pip install datasets==1.14.0
 pip install torch==1.8.0+cu111 torchvision==0.9.0+cu111 torchaudio==0.8.0 -f https://download.pytorch.org/whl/torch_stable.html
 ``````
 
-That will create the environment `py3.7pytorch1.8` we used. 
+That will create the environment `py3.7pytorch1.8new` we used. 
 
 <!--
 ### Sub-Modules
@@ -193,44 +193,44 @@ raw data(s) -> + seq2seq data(s) ("seq_in" and "seq_out") -> tokenized -> seq2se
 
 ## The overview file structure of UnifiedSKG framework
     .
-    ├── configure                          # Code for configuration of different tasks/settings
-    │   ├── META_TUNING # meta config for each task, controls how we construct it to seq2seq data
-    │   └── Salesforce # configs of our experiments settings. We would like to thank Salesforce Research, Amazon Research Awards, ServiceNow Research, and Yale NLP for providing computing resources generously. 
+    ├── configure                              # Code for configuration of different tasks/settings
+    │   ├── META_TUNING                        # meta config for each task, controls how we construct it to seq2seq data
+    │   └── Salesforce                         # configs of our experiments settings. We would like to thank Salesforce Research, Amazon Research Awards, ServiceNow Research, and Yale NLP for providing computing resources generously. 
     │
-    ├── metrics                       # code for evaluating the prediction of our model
-    │   └── ...                     # each file contains a evaluator of the corresponding task
-    ├── models                       # code for models
-    │   ├── adapter # the overwritten hugginface transformers, where we realized adapter in T5 and BART.
-    │   ├── prompt # the overwritten hugginface transformers, where we realized prefix-tuning in T5 and BART.
+    ├── metrics                                # code for evaluating the prediction of our model
+    │   └── ...                                # each file contains a evaluator of the corresponding task
+    ├── models                                 # code for models
+    │   ├── adapter                            # the overwritten hugginface transformers, where we realized adapter in T5 and BART.
+    │   ├── prompt                             # the overwritten hugginface transformers, where we realized prefix-tuning in T5 and BART.
     │   └── unified
-    │           ├── base.py # base model for better push to huggingface arxiv(so called PushToHubFriendlyModel)
-    │           ├── finetune.py # model of the bare finetune
-    │           ├── adaptertuning.py # model of adapter-tuning,
-    │           ├── prefixtuning.py # model of the prefix-tuning, the prompt getting methods followed one of BART in original paper
-    │           └── multitask_prefixtuning.py # model of the mult-task prefix-tuning, support load from different single task prefix and make interaction on them(separate, concat...), but we didn't get satisfying result by doing so. Multi-task in our paper analysis section is SPoT-like.
+    │           ├── base.py                    # base model for better push to huggingface arxiv(so called PushToHubFriendlyModel)
+    │           ├── finetune.py                # model of the bare finetune
+    │           ├── adaptertuning.py           # model of adapter-tuning,
+    │           ├── prefixtuning.py            # model of the prefix-tuning, the prompt getting methods followed one of BART in original paper
+    │           └── multitask_prefixtuning.py  # model of the mult-task prefix-tuning, support load from different single task prefix and make interaction on them (separate, concat...), but we didn't get satisfying result by doing so. 
     │
-    ├── seq2seq_construction                       # Code for wrap the raw data into seq_in and seq_out and add them
-    │    └──  ... # check the README in the ./seq2seq_construction
+    ├── seq2seq_construction                   # Code for wrap the raw data into seq_in and seq_out and add them
+    │    └──  ...                              # check the README in the ./seq2seq_construction
     │
-    ├── tasks                       # Code for encoder-decoder architecture
-    │    └──  ... # check the README in the ./tasks
+    ├── tasks                                  # Code for encoder-decoder architecture
+    │    └──  ...                              # check the README in the ./tasks
     │
-    ├── third_party                       # packages from the third party
-    │    └──  ...  # if you use any github repo from others, try to put them in this dir, and note the links in the .submodules for us to make them easier to added by the recursive clone of git.
+    ├── third_party                            # packages from the third party
+    │    └──  ...                              # if you use any github repo from others, try to put them in this dir, and note the links in the .submodules for us to make them easier to added by the recursive clone of git.
     │
-    ├── utils                       # Code for some useful(or not) stuff
-    │       ├── processor           # adopted from Tapex, processor for handling structured knowledge like table(truncation, linearized etc.) 
-    │       ├── configure.py           # the util for parsing the cfg file in ./configure, will get nested args object which is human friendly.
-    │       ├── dataset.py               # wrap the seq2seq dataset constructed, tokenize the seq_in and seq_out for feed into the trainer.
-    │       ├── tool.py         # Use the reflection to help loading model, seq2seq constructor and evaluator
-    │       └── trainer.py                  # we changed the original trainer into the EvaluationFriendlyTrainer in this file, for easier eval, also we controled the sequence of trainer to be in original order, and add description in it, if you want make any modifications in forward of the models, you may need to change something in here.
-    │       └── training_arguments.py              # wrapped training arguments for seq2seq
+    ├── utils                                  # Code for some useful (or not) stuff
+    │       ├── processor                      # adopted from Tapex, processor for handling structured knowledge like table(truncation, linearized etc.) 
+    │       ├── configure.py                   # the util for parsing the cfg file in ./configure, will get nested args object which is human friendly.
+    │       ├── dataset.py                     # wrap the seq2seq dataset constructed, tokenize the seq_in and seq_out for feed into the trainer.
+    │       ├── tool.py                        # Use the reflection to help loading model, seq2seq constructor and evaluator
+    │       └── trainer.py                     # We changed the original trainer into the EvaluationFriendlyTrainer in this file, for easier evaluation. If you want make modifications in forward pass, you may need to change something here.
+    │       └── training_arguments.py          # Wrapped training arguments for seq2seq
     │
-    ├── .gitignore              # use to ignored some tast or debug files in your desktop
-    ├── .gitmodules           # use the recursive clone of the git, will be used to create files in ./third_party at last
-    ├── py3.7pytorch1.8.yaml     # help you clone the anaconda env
-    ├── README.md         # As you can see, is the README hhhhh
-    └── train.py              # The start of the code, control the train, eval, test, store and log and 
+    ├── .gitignore                             # Used to ignored some unwanted files
+    ├── .gitmodules                            # Used to recursively clone files in ./third_party
+    ├── py3.7pytorch1.8.yaml                   # Help you clone our Anaconda env
+    ├── README.md                              # As you can see, the README file :)
+    └── train.py                               # The entry of the code, which controls the train, eval, test, storage, and logging
 
 
 
