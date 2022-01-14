@@ -195,7 +195,7 @@ raw data(s) -> + seq2seq data(s) ("seq_in" and "seq_out") -> tokenized -> seq2se
     .
     ├── configure                          # Code for configuration of different tasks/settings
     │   ├── META_TUNING # meta config for each task, controls how we construct it to seq2seq data
-    │   └── Salesforce # configs of our experiments settings, also thanks to ElementAI, Rui Zhang
+    │   └── Salesforce # configs of our experiments settings. We would like to thank Salesforce Research, Amazon Research Awards, ServiceNow Research, and Yale NLP for providing computing resources generously. 
     │
     ├── metrics                       # code for evaluating the prediction of our model
     │   └── ...                     # each file contains a evaluator of the corresponding task
