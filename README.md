@@ -116,7 +116,7 @@ we will compress them to create a docker environment in the end.
 ### Environment setup
 Activate the environment by running
 ``````shell
-conda activate py3.7pytorch1.8
+conda activate py3.7pytorch1.8new
 ``````
 
 ### WandB setup
