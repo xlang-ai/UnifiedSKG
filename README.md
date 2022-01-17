@@ -26,7 +26,7 @@ Code for paper [UnifiedSKG: Unifying and Multi-Tasking Structured Knowledge Grou
 
 ## Content
 
-- [UnifiedSKG: A Unified Framework and Analysis for **S**tructured **K**nowledge **G**rounding](#unifiedskgbooks-unifying-and-multi-tasking-structured-knowledge-grounding-with-text-to-text-language-models)
+- [UnifiedSKG: Unifying and Multi-Tasking **S**tructured **K**nowledge **G**rounding with Text-to-Text Language Models](#unifiedskgbooks-unifying-and-multi-tasking-structured-knowledge-grounding-with-text-to-text-language-models)
   * [Cloning this Repo](#cloning-this-repo)
   * [Dependencies](#dependencies)
   * [Usage](#usage)
