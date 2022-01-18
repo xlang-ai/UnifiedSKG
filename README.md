@@ -247,8 +247,9 @@ raw data(s) -> + seq2seq data(s) ("seq_in" and "seq_out") -> tokenized -> seq2se
 5. Add a config file for your task under `./configure/META_TUNING`.
 6. Add a config file for each of your experiment under `./configure/Salesforce`.
 
-# Misc
+## Misc
 - We name the diretory for experimental config files as Salesforce because we would like to thank Salesforce Research for providing a large number of GPUs. We would also like to thank Amazon Research Awards, ServiceNow Research, and Yale NLP for providing computing resources generously. 
+- `./models/unified/combined_prefixtuning.py` is not used in our paper. This file contains code for the *interaction* between multiple prefixes in a single training loop. We tried some variants of such interaction but did not find any of them to outperform the (extremely simple) transfer learning-based approach used in our paper. However, we open-source our failed attempts and call for potential future exploration. 
 
 **That's all for it :D**
 
