@@ -42,7 +42,8 @@ Code for paper [UnifiedSKG: Unifying and Multi-Tasking Structured Knowledge Grou
     + [third_party](https://github.com/HKUNLP/UnifiedSKG/tree/master/third_party)
     + [utils](https://github.com/HKUNLP/UnifiedSKG/tree/master/utils)
   * [Code structure overview of UnifiedSKG](#code-structure-overview-of-unifiedskg)
-  * [How to unify a new task into the framework](#how-to-unify-a-new-task-into-the-framework)
+  * [Add a new task into UnifiedSKG](#add-a-new-task-into-unifiedskg)
+  * [Misc](#misc)
   * [Contributors](#contributors)
 
 
@@ -195,7 +196,7 @@ raw data(s) -> + seq2seq data(s) ("seq_in" and "seq_out") -> tokenized -> seq2se
     .
     ├── configure                              # Config files for experiments, tasks, and settings
     │   ├── META_TUNING                        # Config files for tasks and settings
-    │   └── Salesforce                         # Config files for experiments. We name this diretory as Salesforce to thank Salesforce Research for providing a large number of GPUs. We would like also to thank Amazon Research Awards, ServiceNow Research, and Yale NLP for providing computing resources generously.
+    │   └── Salesforce                         # Config files for experiments (see Misc)
     │
     ├── metrics                                # Code for evaluation
     │   └── ...                                # Please check the README of the ./seq2seq_construction.
@@ -207,7 +208,7 @@ raw data(s) -> + seq2seq data(s) ("seq_in" and "seq_out") -> tokenized -> seq2se
     │           ├── finetune.py                # Code for finetuning
     │           ├── adaptertuning.py           # Code for adapter-tuning
     │           ├── prefixtuning.py            # Code for prefix-tuning
-    │           └── combined_prefixtuning.py   # Code for combined prefix-tuning (not used in our paper, detailed below)
+    │           └── combined_prefixtuning.py   # Code for combined prefix-tuning (not used in our paper, see Misc)
     │
     ├── seq2seq_construction                   # Code for converting raw data into sequences
     │    └──  ...                              # Please check the README in this directory.
@@ -239,16 +240,15 @@ raw data(s) -> + seq2seq data(s) ("seq_in" and "seq_out") -> tokenized -> seq2se
 
 (READMEs in `./tasks`, `./seq2seq_construction`, `./metrics`, `./configure` can also be helpful)
 
-- **Step 1.** Add a "Loader" of raw data under `./tasks`. You can search [HuggingFace Datasets](https://github.com/huggingface/datasets) for possibly useful scripts. If not, you can be the contributor of both this project and the HuggingFace community.
+1. Add a "Loader" of raw data under `./tasks`. You can search [HuggingFace Datasets](https://github.com/huggingface/datasets) for possibly useful scripts. If not, you can be the contributor of both this project and the HuggingFace community.
+2. Add a "Sequence Wrapper" under `./seq2seq_construction` to construct sequence inputs (user request and structured knowledge) and sequene outputs from raw data for the unification.
+3. Add an "Evaluator" for your task under `./metrics`. If a third-party repository is used, remember to add it into [.gitmodules](https://git-scm.com/docs/gitmodules). 
+4. *(optional)* You can add a new "Model" under `./models` for a new model architecture or a new learning algorithm.
+5. Add a config file for your task under `./configure/META_TUNING`.
+6. Add a config file for each of your experiment under `./configure/Salesforce`.
 
-- **Step 2.** Add a "Sequence Wrapper" under `./seq2seq_construction` to construct sequence inputs (user request and structured knowledge) and sequene outputs from raw data for the unification.
-
-- **Step 3.** Add an "Evaluator" for your task under `./metrics`. If a third-party repository is used, remember to add it into [.gitmodules](https://git-scm.com/docs/gitmodules). 
-
-- **Step 3.5 (optional).** You can add a new "Model" under `./models` for a new model architecture or a new learning algorithm.
-
-- **Step 4.** Add a config file for your task under `./configure/META_TUNING`.
-- **Step 5.** Add a config file for each of your experiment under `./configure/Salesforce`.
+# Misc
+- We name the diretory for experimental config files as Salesforce because we would like to thank Salesforce Research for providing a large number of GPUs. We would also like to thank Amazon Research Awards, ServiceNow Research, and Yale NLP for providing computing resources generously. 
 
 **That's all for it :D**
 
