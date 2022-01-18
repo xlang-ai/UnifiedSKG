@@ -206,7 +206,8 @@ raw data(s) -> + seq2seq data(s) ("seq_in" and "seq_out") -> tokenized -> seq2se
     │           ├── base.py                    # Code for the base model that enables an arbitrary model to be pushed to HuggingFace Model Hub (namely, PushToHubFriendlyModel)
     │           ├── finetune.py                # Code for finetuning
     │           ├── adaptertuning.py           # Code for adapter-tuning
-    │           └── prefixtuning.py            # Code for prefix-tuning
+    │           ├── prefixtuning.py            # Code for prefix-tuning
+    │           └── combined_prefixtuning.py   # Code for combined prefix-tuning (not used in our paper, detailed below)
     │
     ├── seq2seq_construction                   # Code for converting raw data into sequences
     │    └──  ...                              # Please check the README in this directory.
@@ -234,21 +235,22 @@ raw data(s) -> + seq2seq data(s) ("seq_in" and "seq_out") -> tokenized -> seq2se
 
 
 
-## How to unify a new task into the framework?
+## Add a new task into UnifiedSKG
 
-(README in ./tasks, ./seq2seq_construction, ./metrics, ./configure can also be useful)
+(READMEs in `./tasks`, `./seq2seq_construction`, `./metrics`, `./configure` can also be helpful)
 
-- **step 1**, Add the "Loader" of raw data in ./tasks, (you can search in [huggingface dataset website](https://github.com/huggingface/datasets) firstly to find whether there is already a usable script, if not, that's great because you can be the contributor of both this project and huggingface community.
+- **Step 1.** Add a "Loader" of raw data under `./tasks`. You can search [HuggingFace Datasets](https://github.com/huggingface/datasets) for possibly useful scripts. If not, you can be the contributor of both this project and the HuggingFace community.
 
-- **step 2**, Add the "Wrapper" which construct "seq_in"("user request input" & "structured knowledge input") and "seq_out" from and add to the raw_data for seq2seq unification.
+- **Step 2.** Add a "Sequence Wrapper" under `./seq2seq_construction` to construct sequence inputs (user request and structured knowledge) and sequene outputs from raw data for the unification.
 
-- **step 3**, Add the "Evaluator"(for task) in ./metrics. if any third_party repo are used, please add them into [.gitmodules](https://git-scm.com/docs/gitmodules).
+- **Step 3.** Add an "Evaluator" for your task under `./metrics`. If a third-party repository is used, remember to add it into [.gitmodules](https://git-scm.com/docs/gitmodules). 
 
-- **step 3.5(optional)**, You can always add new "Model" into the ./models/ if you like, change the path in config files to drive new model.
+- **Step 3.5 (optional).** You can add a new "Model" under `./models` for a new model architecture or a new learning algorithm.
 
-- **step 4**, Add the "Config" file to drive your task or all the tasks we have by finetune/multi-task-finetune/pretrain/prefix-tuning/multi-task-prefix-tuning... or other ways. 
+- **Step 4.** Add a config file for your task under `./configure/META_TUNING`.
+- **Step 5.** Add a config file for each of your experiment under `./configure/Salesforce`.
 
-**And this is all for it ! =)**
+**That's all for it :D**
 
 ## Contributors
 <a href="https://github.com/Timothyxxx">  <img src="https://avatars.githubusercontent.com/u/47296835?v=4"  width="50" /></a> 
