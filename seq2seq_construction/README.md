@@ -1,13 +1,5 @@
-# seq2seq_construction---Wrap the raw data into 'seq_in' and 'seq_out' for our unification 
-In this file we write python files for "wrap" the raw data into a seq2seq format.
+# Converting raw data into sequences
 
-We receive the **DatasetDict**(which contains train, dev, (test)) from the raw data split we got from the last step.
-And wrap them to form **three/two Dataset**(torch.nn.data.Dataset) for feeding to the [huggingface trainer](https://huggingface.co/transformers/main_classes/trainer.html).
-
-The args are from the args we set in the config file. Feel free to open your config files 
-in configure file and add you own args if you need it in the seq2seq_construction.
- 
-## How to add
-Baobao highly recommand guys to read the other python file for example, spider.py or wikisql.py.
+Each file defines a constructor that converts raw data (from a training set, a development set, and an optional test set) of a task into sequences (returned as several torch.nn.data.Dataset's). The constructor may use any variables defined in the corresponding config file. Please refer to the files under this directory for more details.
 
 
