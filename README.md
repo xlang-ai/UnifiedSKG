@@ -124,9 +124,9 @@ conda activate py3.7pytorch1.8new
 
 Setup [WandB](https://wandb.ai/) for logging (registration needed):
 ``````shell
-export WANDB_ENTITY=YOUR_WANDB_USERNAME
 export WANDB_API_KEY=YOUR_WANDB_API_KEY
 export WANDB_PROJECT=YOUR_PROJECT_NAME
+export WANDB_ENTITY=YOUR_TEAM_NAME
 ``````
 
 ### Training
