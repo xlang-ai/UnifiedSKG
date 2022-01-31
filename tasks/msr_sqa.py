@@ -20,7 +20,7 @@ import csv
 import os
 
 import datasets
-
+import pandas as pd
 
 # Find for instance the citation on arxiv or on the dataset repo/website
 _CITATION = """\
@@ -61,11 +61,16 @@ def _load_table_data(table_file):
         header: a list of headers in the table.
         data: 2d array of data in the table.
     """
-    with open(table_file, encoding="utf-8") as f:
-        lines = f.readlines()
-    header = lines[0].strip().split(",")
-    data = [line.strip().split(",") for line in lines[1:]]
-    return header, data
+    # TODO: Remind to pull request it, since the original version
+    #  huggingface dataset package did wrong in loading this table...
+    rows = []
+    table_data = pd.read_csv(table_file)
+    # the first line is header
+    header = list(table_data.columns)
+    for row_data in table_data.values:
+        rows.append([str(_) for _ in list(row_data)])
+
+    return header, rows
 
 
 def _parse_answer_coordinates(answer_coordinate_str):
