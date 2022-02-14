@@ -14,3 +14,6 @@
 [submodule "third_party/tabert"]
 	path = third_party/tabert
 	url = https://github.com/facebookresearch/TaBERT.git
+[submodule "third_party/sparc"]
+	path = third_party/sparc
+	url = https://github.com/taoyds/sparc.git
