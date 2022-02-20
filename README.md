@@ -15,7 +15,7 @@
 
 Code for paper [UnifiedSKG: Unifying and Multi-Tasking Structured Knowledge Grounding with Text-to-Text Language Models](https://arxiv.org/pdf/2201.05966.pdf). Please refer to our [project page](https://unifiedskg.com/) for up-to-date related resources (e.g., papers, code, tools, tutorials) for Structured Knowledge Grounding. Load our checkpoints from [HuggingFace Model Hub](https://huggingface.co/hkunlp).
 
-<img src="pics/logos.png" align="middle" width="98%">
+<img src="pics/unifiedskg.png" align="middle" width="100%">
 
 **S**tructured **k**nowledge **g**rounding (**SKG**) leverages structured knowledge to complete user requests, such as semantic parsing over databases and question answering over knowledge bases. Since the inputs and outputs of SKG tasks are heterogeneous, they were historically studied in separate by different communities,  which limits systematic and compatible research on SKG. In this paper, we overcome this limitation by proposing the **UnifiedSKG framework**, which unifies **21 SKG tasks** into the text-to-text format, aiming to promote systematic SKG research, instead of being exclusive to a single task, domain, or dataset. We show that large language models like T5, with simple modification when necessary, achieve **state-of-the-art performance on nearly all 21 tasks**. UnifiedSKG facilitates **multi-task learning**. We show that multi-task prefix-tuning benefits most tasks, largely improving the overall performance. UnifiedSKG is a challenging testbed for **zero-shot and few-shot learning**, which T0, GPT-3, and Codex struggle in. UnifiedSKG also enables a series of controlled experiments on **structured knowledge encoding** variants across SKG tasks. We find that T5’s sensitivity to structured knowledge encoding variations varies across tasks. 
 
@@ -250,6 +250,8 @@ raw data(s) -> + seq2seq data(s) ("seq_in" and "seq_out") -> tokenized -> seq2se
 ## Misc
 - We name the diretory for experimental config files as Salesforce because we would like to thank Salesforce Research for providing a large number of GPUs. We would also like to thank Amazon Research Awards, ServiceNow Research, and Yale NLP for providing computing resources generously. 
 - `./models/unified/combined_prefixtuning.py` is not used in our paper. This file contains code for the *interaction* between multiple prefixes in a single training loop. We tried some variants of such interaction but did not find any of them to outperform the (extremely simple) transfer learning-based approach used in our paper. However, we open-source our failed attempts and call for potential future exploration. 
+
+<img src="pics/logos.png" align="middle" width="98%">
 
 **That's all for it :D**
 
