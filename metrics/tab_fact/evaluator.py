@@ -25,11 +25,12 @@ class EvaluateTool(object):
             if gold_item["small_test"]:
                 small_test_match.append(match_or_not)
 
-        summary["all"] = float(np.mean(all_match))
-
-        # TODO commented by Tianbao: for now we don't use too many metrics, only use "all" as indicator.
-        # summary["simple"] = float(np.mean(simple_match))
-        # summary["complex"] = float(np.mean(complex_match))
-        # summary["small_test"] = float(np.mean(small_test_match))
+        if section in ['train', 'dev']:
+            summary["all"] = float(np.mean(all_match))
+        elif section in ['test']:
+            summary["all"] = float(np.mean(all_match))
+            summary["simple"] = float(np.mean(simple_match))
+            summary["complex"] = float(np.mean(complex_match))
+            summary["small_test"] = float(np.mean(small_test_match))
 
         return summary
