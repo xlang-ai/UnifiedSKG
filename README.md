@@ -22,6 +22,7 @@ Code for paper [UnifiedSKG: Unifying and Multi-Tasking Structured Knowledge Grou
 **UnifiedSKG** is easily extensible. Your **pull requests** to add datasets, settings, metrics, models, and new features to UnifiedSKG are highly welcome! 
 
 ## Updates
+- **2022-03-12**: Check out the seq2seq data we processed for you [here](https://drive.google.com/drive/folders/1GXigUv3MU-Sh4XiY6Wz3xVeNT_s0SuON) by UnifiedSKG if you want to make your own attempts instead of using the huggingface loaders in our framework. 
 - **2022-01-12**: We released our [code](https://github.com/HKUNLP/UnifiedSKG), [colab demo](https://colab.research.google.com/drive/1f9yTXC3GpSyRJOjzsKceG_bhk-Cw71Ga#scrollTo=r_3-DN0SvC97), [weights](https://huggingface.co/hkunlp) and [project page](https://unifiedskg.com). Check it out!
 
 ## Content
