@@ -71,7 +71,7 @@ _HOMEPAGE = "https://yale-lily.github.io/cosql"
 
 _LICENSE = "CC BY-SA 4.0"
 
-_URL = "https://drive.google.com/uc?export=download&id=14x6lsWqlu6gR-aYxa6cemslDN3qT3zxP"
+_URL = "https://drive.google.com/uc?export=download&confirm=9iBg&id=14x6lsWqlu6gR-aYxa6cemslDN3qT3zxP"
 
 
 class CoSQL(datasets.GeneratorBasedBuilder):

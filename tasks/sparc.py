@@ -50,7 +50,7 @@ _HOMEPAGE = "https://yale-lily.github.io/sparc"
 
 _LICENSE = "CC BY-SA 4.0"
 
-_URL = "https://drive.google.com/uc?export=download&id=13Abvu5SUMSP3SJM-ZIj66mOkeyAquR73"
+_URL = "https://drive.google.com/uc?export=download&confirm=9iBg&id=13Abvu5SUMSP3SJM-ZIj66mOkeyAquR73"
 
 
 class SParC(datasets.GeneratorBasedBuilder):
