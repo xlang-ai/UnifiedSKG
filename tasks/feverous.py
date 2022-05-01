@@ -23,7 +23,7 @@ _HOMEPAGE = "https://fever.ai/dataset/feverous.html"
 
 _LICENSE = ""
 
-_URL = "https://s3.eu-west-1.amazonaws.com/fever.public/feverous/"
+_URL = "https://fever.ai/download/feverous/"
 _TRAINING_FILE = "feverous_train_challenges.jsonl"
 _DEV_FILE = "feverous_dev_challenges.jsonl"
 _DATABASE = "feverous-wiki-pages-db.zip"
