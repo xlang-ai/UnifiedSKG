@@ -113,7 +113,7 @@ class TokenizedDataset(Dataset):
             tokenized_knowledge = self.tokenizer(raw_item["struct_in"],
                                                  padding="max_length",
                                                  truncation=True,
-                                                 max_length=self.tokenizer.input_max_length,
+                                                 max_length=self.training_args.input_max_length,
                                                  )
             item['knowledge_input_ids'] = torch.LongTensor(tokenized_knowledge.data["input_ids"])
             item['knowledge_attention_mask'] = torch.LongTensor(tokenized_knowledge.data["attention_mask"])
