@@ -117,7 +117,7 @@ class Model(PushToHubFriendlyModel):
             temp_control = temp_control + description.repeat_interleave(sample_size, dim=0).unsqueeze(1)
         past_key_values = self.control_trans(temp_control)  # bsz, seqlen, layer*emb
         if knowledge is not None:
-            past_key_values = torch.cat([past_key_values, self.knowledge_trans(knowledge)], dim=1)
+            past_key_values = torch.cat([past_key_values, self.knowledge_trans(knowledge.repeat_interleave(sample_size, dim=0).unsqueeze(1))], dim=1)
 
         bsz, seqlen, _ = past_key_values.shape
         past_key_values = past_key_values.view(
@@ -134,7 +134,7 @@ class Model(PushToHubFriendlyModel):
             temp_control_dec
         )  # bsz, seqlen, layer*emb
         if knowledge is not None:
-            past_key_values_dec = torch.cat([past_key_values_dec, self.knowledge_trans_dec(knowledge)], dim=1)
+            past_key_values_dec = torch.cat([past_key_values_dec, self.knowledge_trans_dec(knowledge.repeat_interleave(sample_size, dim=0).unsqueeze(1))], dim=1)
 
         bsz, seqlen, _ = past_key_values_dec.shape
         past_key_values_dec = past_key_values_dec.view(
