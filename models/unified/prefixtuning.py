@@ -31,15 +31,16 @@ class Model(PushToHubFriendlyModel):
         if isinstance(self.pretrain_model, BartForConditionalGeneration):
             self.match_n_layer = self.config.decoder_layers
             self.match_n_head = self.config.decoder_attention_heads
+            self.n_embd = self.config.d_model
+            assert self.n_embd % self.match_n_head == 0
+            self.match_n_embd = self.n_embd // self.match_n_head # huggingface BART's dim of kv need to be calculated
         elif isinstance(self.pretrain_model, (T5ForConditionalGeneration)):
             self.match_n_layer = self.config.num_decoder_layers
             self.match_n_head = self.config.num_heads
+            self.n_embd = self.config.d_model
+            self.match_n_embd = self.config.d_kv
         else:
             raise ValueError("Other models are not supported yet!")
-
-        self.n_embd = self.config.d_model
-        assert self.n_embd % self.match_n_head == 0
-        self.match_n_embd = self.n_embd // self.match_n_head
 
         if args.special_tokens:
             self.tokenizer.add_tokens([v for k, v in args.special_tokens])
