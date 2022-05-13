@@ -53,33 +53,33 @@ class Model(PushToHubFriendlyModel):
         self.control_trans = nn.Sequential(
             nn.Linear(self.n_embd, self.mid_dim),
             nn.Tanh(),
-            nn.Linear(self.mid_dim, self.match_n_layer * 2 * self.n_embd),
+            nn.Linear(self.mid_dim, self.match_n_layer * 2 * self.match_n_head * self.match_n_embd),
         )
         if self.args.model.knowledge_usage == 'separate':
             self.knowledge_trans = nn.Sequential(
                 nn.Linear(self.n_embd, self.mid_dim),
                 nn.Tanh(),
-                nn.Linear(self.mid_dim, self.match_n_layer * 2 * self.n_embd),
+                nn.Linear(self.mid_dim, self.match_n_layer * 2 * self.match_n_head * self.match_n_embd),
             )
 
         self.wte_enc = nn.Embedding(self.preseqlen, self.n_embd)
         self.control_trans_enc = nn.Sequential(
             nn.Linear(self.n_embd, self.mid_dim),
             nn.Tanh(),
-            nn.Linear(self.mid_dim, self.match_n_layer * 2 * self.n_embd),
+            nn.Linear(self.mid_dim, self.match_n_layer * 2 * self.match_n_head * self.match_n_embd),
         )
         if self.args.model.knowledge_usage == 'separate':
             self.knowledge_trans_enc = nn.Sequential(
                 nn.Linear(self.n_embd, self.mid_dim),
                 nn.Tanh(),
-                nn.Linear(self.mid_dim, self.match_n_layer * 2 * self.n_embd),
+                nn.Linear(self.mid_dim, self.match_n_layer * 2 * self.match_n_head * self.match_n_embd),
             )
 
         self.wte_dec = nn.Embedding(self.preseqlen, self.n_embd)
         self.control_trans_dec = nn.Sequential(
             nn.Linear(self.n_embd, self.mid_dim),
             nn.Tanh(),
-            nn.Linear(self.mid_dim, self.match_n_layer * 2 * self.n_embd),
+            nn.Linear(self.mid_dim, self.match_n_layer * 2 * self.match_n_head * self.match_n_embd),
         )
 
         # Knowledge prompt.
@@ -87,7 +87,7 @@ class Model(PushToHubFriendlyModel):
             self.knowledge_trans_dec = nn.Sequential(
                 nn.Linear(self.n_embd, self.mid_dim),
                 nn.Tanh(),
-                nn.Linear(self.mid_dim, self.match_n_layer * 2 * self.n_embd),
+                nn.Linear(self.mid_dim, self.match_n_layer * 2 * self.match_n_head * self.match_n_embd),
             )
 
         self.dropout = nn.Dropout(args.prefix_tuning.prefix_dropout)
