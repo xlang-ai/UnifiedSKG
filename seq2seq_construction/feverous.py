@@ -83,9 +83,7 @@ class TrainDataset(Dataset):
                             table_contexts_strs.append(
                                 self.tab_processor.table_linearize_func.process_table(table_context))
 
-                    linear_table = ""
-                    for table_context_str in table_contexts_strs:
-                        linear_table += table_context_str + " "
+                    linear_table = "" + " ".join(table_contexts_strs)
 
                     passage_context_str = " ".join(contexts)
                     extend_data.update({"struct_in": linear_table.lower() + passage_context_str.lower(),
